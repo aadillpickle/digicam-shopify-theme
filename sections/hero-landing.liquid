@@ -7,27 +7,23 @@
     justify-content: flex-end;
     padding: 3rem;
     overflow: hidden;
-    background: linear-gradient(
-      135deg,
-      {{ section.settings.background_color }} 0%,
-      {{ section.settings.background_color }} 50%,
-      {{ section.settings.gradient_lavender }} 100%
-    );
+    background: {{ section.settings.background_color }};
   }
 
+  /* Smooth blended gradients */
   .hero-landing-section::before {
     content: '';
     position: absolute;
     bottom: 0;
     left: 0;
-    right: 50%;
-    height: 40%;
-    background: linear-gradient(
-      to top,
+    width: 70%;
+    height: 60%;
+    background: radial-gradient(
+      ellipse at bottom left,
       {{ section.settings.gradient_peach }} 0%,
-      transparent 100%
+      transparent 70%
     );
-    opacity: 0.6;
+    opacity: 0.7;
     pointer-events: none;
   }
 
@@ -36,14 +32,14 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 50%;
+    width: 60%;
     height: 100%;
-    background: linear-gradient(
-      to left,
+    background: radial-gradient(
+      ellipse at top right,
       {{ section.settings.gradient_lavender }} 0%,
-      transparent 60%
+      transparent 70%
     );
-    opacity: 0.5;
+    opacity: 0.7;
     pointer-events: none;
   }
 
@@ -76,6 +72,27 @@
     margin: 0;
   }
 
+  /* Arrow and CTA positioning */
+  .hero-arrow-wrapper {
+    position: relative;
+    width: 80px;
+    height: 100px;
+    margin-top: 1rem;
+    margin-left: 2rem;
+  }
+
+  .hero-cta-arrow {
+    width: 100%;
+    height: 100%;
+    stroke: var(--color-text, #1a1a1a);
+    stroke-width: 2;
+  }
+
+  .hero-cta-container {
+    margin-top: -0.5rem;
+    margin-left: 1rem;
+  }
+
   @media (max-width: 768px) {
     .hero-landing-section {
       padding: 1.5rem;
@@ -86,28 +103,50 @@
     .hero-product-placeholder {
       aspect-ratio: 1;
     }
+
+    .hero-arrow-wrapper {
+      width: 60px;
+      height: 80px;
+      margin-left: 1rem;
+    }
+
+    .hero-cta-container {
+      margin-left: 0;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-headline {
+      text-align: center;
+    }
   }
 {%- endstyle -%}
 
 <section class="hero-landing-section" data-section-id="{{ section.id }}">
-  <!-- Floating 3D Shapes -->
+  <!-- Floating 3D Shapes - Spread across page -->
   <div class="floating-sphere sphere-1"></div>
   <div class="floating-sphere sphere-2"></div>
+  <div class="floating-sphere sphere-3"></div>
 
   <!-- Curly Springs -->
   <div class="floating-spring spring-1">
-    <svg viewBox="0 0 40 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 5 C35 5, 35 15, 20 15 C5 15, 5 25, 20 25 C35 25, 35 35, 20 35 C5 35, 5 45, 20 45 C35 45, 35 55, 20 55 C5 55, 5 65, 20 65 C35 65, 35 75, 20 75" stroke="white" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <svg viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 5 C38 5, 38 18, 20 18 C2 18, 2 31, 20 31 C38 31, 38 44, 20 44 C2 44, 2 57, 20 57 C38 57, 38 70, 20 70 C2 70, 2 83, 20 83 C38 83, 38 96, 20 96" stroke="white" stroke-width="5" stroke-linecap="round" fill="none"/>
     </svg>
   </div>
   <div class="floating-spring spring-2">
-    <svg viewBox="0 0 40 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 5 C35 5, 35 15, 20 15 C5 15, 5 25, 20 25 C35 25, 35 35, 20 35 C5 35, 5 45, 20 45 C35 45, 35 55, 20 55 C5 55, 5 65, 20 65 C35 65, 35 75, 20 75" stroke="white" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <svg viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 5 C38 5, 38 18, 20 18 C2 18, 2 31, 20 31 C38 31, 38 44, 20 44 C2 44, 2 57, 20 57 C38 57, 38 70, 20 70 C2 70, 2 83, 20 83 C38 83, 38 96, 20 96" stroke="white" stroke-width="5" stroke-linecap="round" fill="none"/>
     </svg>
   </div>
 
   <!-- 3D Torus/Donut -->
   <div class="floating-torus torus-1"></div>
+  <div class="floating-torus torus-2"></div>
 
   <!-- 3D Cone -->
   <div class="floating-cone cone-1"></div>
@@ -163,32 +202,36 @@
     {%- endif -%}
   </div>
 
-  <!-- CTA Button with Hand-drawn Arrow -->
-  <div class="hero-cta-container">
-    <div class="hero-cta-arrow">
-      <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-        <path d="M 45 10 Q 30 5 20 25 Q 15 40 25 50" stroke-linecap="round"/>
-        <path d="M 20 45 L 25 50 L 30 42" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-    {%- assign featured_product = section.settings.featured_product -%}
-    {%- if featured_product != blank -%}
-      <a href="{{ featured_product.url }}" class="btn btn-primary btn-with-check">
-        {{ section.settings.button_text | default: 'Add to cart' }}
-      </a>
-    {%- else -%}
-      <a href="/collections/all" class="btn btn-primary btn-with-check">
-        {{ section.settings.button_text | default: 'Add to cart' }}
-      </a>
-    {%- endif -%}
-  </div>
-
-  <!-- Hero Headline -->
+  <!-- Hero Headline with Arrow pointing to CTA -->
   <div class="hero-content">
     <h1 class="hero-headline">
       <span class="hero-headline-italic">{{ section.settings.headline_line1 | default: 'Mini' }}</span>
       <span>{{ section.settings.headline_line2 | default: 'DigiCam' }}</span>
     </h1>
+
+    <!-- Hand-drawn Arrow curving from headline to button -->
+    <div class="hero-arrow-wrapper">
+      <svg class="hero-cta-arrow" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 10 10 Q 20 50 50 70 Q 70 85 75 110" stroke-linecap="round" fill="none"/>
+        <path d="M 68 100 L 75 112 L 82 102" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </div>
+
+    <!-- CTA Button -->
+    <div class="hero-cta-container">
+      {%- liquid
+        if section.settings.button_link != blank
+          assign button_url = section.settings.button_link
+        elsif section.settings.featured_product != blank
+          assign button_url = section.settings.featured_product.url
+        else
+          assign button_url = '/collections/all'
+        endif
+      -%}
+      <a href="{{ button_url }}" class="btn btn-primary btn-with-check btn-large">
+        {{ section.settings.button_text | default: 'Add to cart' }}
+      </a>
+    </div>
   </div>
 </section>
 
@@ -233,6 +276,12 @@
       "id": "button_text",
       "label": "Button text",
       "default": "Add to cart"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "info": "Leave empty to link to the featured product"
     },
     {
       "type": "header",

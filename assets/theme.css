@@ -385,40 +385,48 @@ a:hover {
   object-fit: contain;
 }
 
-/* Floating 3D Shapes */
+/* Floating 3D Shapes - Bigger and spread across page */
 .floating-sphere {
   position: absolute;
   border-radius: 50%;
   background: linear-gradient(135deg, #FFFFFF 0%, #F0F0F0 100%);
   box-shadow:
-    inset -5px -5px 15px rgba(0, 0, 0, 0.05),
-    5px 5px 20px rgba(0, 0, 0, 0.1);
+    inset -8px -8px 20px rgba(0, 0, 0, 0.05),
+    8px 8px 25px rgba(0, 0, 0, 0.12);
   pointer-events: none;
   z-index: 3;
 }
 
 .sphere-1 {
-  width: 50px;
-  height: 50px;
-  top: 15%;
-  right: 8%;
+  width: 80px;
+  height: 80px;
+  top: 8%;
+  right: 15%;
   animation: float 6s ease-in-out infinite;
 }
 
 .sphere-2 {
-  width: 35px;
-  height: 35px;
-  top: 65%;
-  right: 40%;
+  width: 55px;
+  height: 55px;
+  top: 60%;
+  left: 8%;
   animation: float 8s ease-in-out infinite 1s;
 }
 
-/* Curly Springs */
+.sphere-3 {
+  width: 45px;
+  height: 45px;
+  top: 35%;
+  left: 25%;
+  animation: float 7s ease-in-out infinite 2s;
+}
+
+/* Curly Springs - Bigger */
 .floating-spring {
   position: absolute;
   pointer-events: none;
   z-index: 3;
-  filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.15));
+  filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.18));
 }
 
 .floating-spring svg {
@@ -427,64 +435,74 @@ a:hover {
 }
 
 .floating-spring svg path {
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.12));
 }
 
 .spring-1 {
-  width: 35px;
-  height: 70px;
-  top: 20%;
-  right: 3%;
+  width: 55px;
+  height: 110px;
+  top: 12%;
+  right: 5%;
   animation: floatRotate 7s ease-in-out infinite;
   transform: rotate(-15deg);
 }
 
 .spring-2 {
-  width: 28px;
-  height: 56px;
-  top: 55%;
-  right: 12%;
+  width: 45px;
+  height: 90px;
+  bottom: 15%;
+  left: 5%;
   animation: floatRotate 9s ease-in-out infinite 2s;
   transform: rotate(20deg);
 }
 
-/* 3D Torus/Donut */
+/* 3D Torus/Donut - Bigger */
 .floating-torus {
   position: absolute;
-  width: 45px;
-  height: 45px;
-  border: 8px solid white;
+  width: 70px;
+  height: 70px;
+  border: 12px solid white;
   border-radius: 50%;
   pointer-events: none;
   z-index: 3;
   box-shadow:
-    inset -3px -3px 8px rgba(0, 0, 0, 0.08),
-    3px 3px 12px rgba(0, 0, 0, 0.12);
+    inset -5px -5px 12px rgba(0, 0, 0, 0.08),
+    5px 5px 15px rgba(0, 0, 0, 0.15);
 }
 
 .torus-1 {
-  top: 45%;
-  right: 2%;
+  top: 25%;
+  right: 3%;
   animation: floatRotate 8s ease-in-out infinite 0.5s;
   transform: rotateX(60deg) rotateZ(20deg);
 }
 
-/* 3D Cone */
+.torus-2 {
+  width: 50px;
+  height: 50px;
+  border-width: 9px;
+  bottom: 25%;
+  right: 20%;
+  animation: floatRotate 10s ease-in-out infinite 1s;
+  transform: rotateX(45deg) rotateZ(-15deg);
+}
+
+/* 3D Cone - Bigger */
 .floating-cone {
   position: absolute;
   width: 0;
   height: 0;
-  border-left: 18px solid transparent;
-  border-right: 18px solid transparent;
-  border-bottom: 40px solid white;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 60px solid white;
   pointer-events: none;
   z-index: 3;
-  filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.15));
+  filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.18));
 }
 
 .cone-1 {
-  top: 70%;
-  right: 30%;
+  top: 55%;
+  right: 8%;
   animation: floatRotate 6s ease-in-out infinite 1.5s;
   transform: rotate(25deg);
 }
@@ -557,37 +575,7 @@ a:hover {
   }
 }
 
-/* Add to Cart Button with Arrow */
-.hero-cta-container {
-  position: absolute;
-  left: 18%;
-  top: 38%;
-  z-index: 4;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.hero-cta-arrow {
-  width: 70px;
-  height: 70px;
-  margin-bottom: -10px;
-  margin-left: 120px;
-  transform: rotate(-25deg);
-}
-
-.hero-cta-arrow svg {
-  width: 100%;
-  height: 100%;
-  stroke: var(--color-text);
-  stroke-width: 1.5;
-  fill: none;
-}
-
-.hero-cta-container .btn {
-  padding: 1.25rem 2.5rem;
-  font-size: 1.0625rem;
-}
+/* Hero CTA styling moved to section inline styles */
 
 /* Product Page */
 .product-section {
@@ -1182,30 +1170,39 @@ a:hover {
     text-align: center;
   }
 
-  /* Hide some floating shapes on mobile */
+  /* Reduce floating shapes on mobile */
   .floating-spring,
   .floating-torus,
   .floating-cone {
+    opacity: 0.5;
+    transform: scale(0.6);
+  }
+
+  .spring-2,
+  .torus-2 {
     display: none;
   }
 
   .floating-sphere {
-    opacity: 0.6;
+    opacity: 0.7;
   }
 
   .sphere-1 {
-    width: 30px;
-    height: 30px;
-    top: 10%;
-    right: 10%;
+    width: 50px;
+    height: 50px;
+    top: 5%;
+    right: 5%;
   }
 
   .sphere-2 {
-    width: 25px;
-    height: 25px;
-    top: auto;
-    bottom: 20%;
-    right: 5%;
+    width: 35px;
+    height: 35px;
+    bottom: 30%;
+    left: 5%;
+  }
+
+  .sphere-3 {
+    display: none;
   }
 
   /* Product page mobile */
