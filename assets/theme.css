@@ -385,7 +385,7 @@ a:hover {
   object-fit: contain;
 }
 
-/* Floating 3D Shapes - Bigger and spread across page */
+/* Floating 3D Shapes - 6 total, positioned at edges away from center content */
 .floating-sphere {
   position: absolute;
   border-radius: 50%;
@@ -394,38 +394,32 @@ a:hover {
     inset -8px -8px 20px rgba(0, 0, 0, 0.05),
     8px 8px 25px rgba(0, 0, 0, 0.12);
   pointer-events: none;
-  z-index: 3;
+  z-index: 1;
 }
 
+/* Sphere 1 - Top right corner */
 .sphere-1 {
-  width: 80px;
-  height: 80px;
-  top: 8%;
-  right: 15%;
+  width: 70px;
+  height: 70px;
+  top: 6%;
+  right: 4%;
   animation: float 6s ease-in-out infinite;
 }
 
+/* Sphere 2 - Bottom left corner */
 .sphere-2 {
   width: 55px;
   height: 55px;
-  top: 60%;
-  left: 8%;
+  bottom: 8%;
+  left: 4%;
   animation: float 8s ease-in-out infinite 1s;
 }
 
-.sphere-3 {
-  width: 45px;
-  height: 45px;
-  top: 35%;
-  left: 25%;
-  animation: float 7s ease-in-out infinite 2s;
-}
-
-/* Curly Springs - Bigger */
+/* Curly Springs */
 .floating-spring {
   position: absolute;
   pointer-events: none;
-  z-index: 3;
+  z-index: 1;
   filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.18));
 }
 
@@ -438,73 +432,67 @@ a:hover {
   filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.12));
 }
 
+/* Spring 1 - Top left */
 .spring-1 {
-  width: 55px;
-  height: 110px;
-  top: 12%;
-  right: 5%;
+  width: 50px;
+  height: 100px;
+  top: 8%;
+  left: 5%;
   animation: floatRotate 7s ease-in-out infinite;
   transform: rotate(-15deg);
 }
 
+/* Spring 2 - Right side middle-bottom */
 .spring-2 {
   width: 45px;
   height: 90px;
-  bottom: 15%;
-  left: 5%;
+  bottom: 20%;
+  right: 3%;
   animation: floatRotate 9s ease-in-out infinite 2s;
-  transform: rotate(20deg);
+  transform: rotate(15deg);
 }
 
-/* 3D Torus/Donut - Bigger */
+/* 3D Torus/Donut */
 .floating-torus {
   position: absolute;
-  width: 70px;
-  height: 70px;
   border: 12px solid white;
   border-radius: 50%;
   pointer-events: none;
-  z-index: 3;
+  z-index: 1;
   box-shadow:
     inset -5px -5px 12px rgba(0, 0, 0, 0.08),
     5px 5px 15px rgba(0, 0, 0, 0.15);
 }
 
+/* Torus 1 - Right side upper */
 .torus-1 {
-  top: 25%;
+  width: 65px;
+  height: 65px;
+  top: 18%;
   right: 3%;
   animation: floatRotate 8s ease-in-out infinite 0.5s;
   transform: rotateX(60deg) rotateZ(20deg);
 }
 
-.torus-2 {
-  width: 50px;
-  height: 50px;
-  border-width: 9px;
-  bottom: 25%;
-  right: 20%;
-  animation: floatRotate 10s ease-in-out infinite 1s;
-  transform: rotateX(45deg) rotateZ(-15deg);
-}
-
-/* 3D Cone - Bigger */
+/* 3D Cone */
 .floating-cone {
   position: absolute;
   width: 0;
   height: 0;
-  border-left: 30px solid transparent;
-  border-right: 30px solid transparent;
-  border-bottom: 60px solid white;
+  border-left: 28px solid transparent;
+  border-right: 28px solid transparent;
+  border-bottom: 55px solid white;
   pointer-events: none;
-  z-index: 3;
+  z-index: 1;
   filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.18));
 }
 
+/* Cone 1 - Bottom right area */
 .cone-1 {
-  top: 55%;
-  right: 8%;
+  bottom: 12%;
+  right: 12%;
   animation: floatRotate 6s ease-in-out infinite 1.5s;
-  transform: rotate(25deg);
+  transform: rotate(20deg);
 }
 
 @keyframes float {
@@ -1170,16 +1158,10 @@ a:hover {
     text-align: center;
   }
 
-  /* Reduce floating shapes on mobile */
+  /* Reduce floating shapes on mobile - only show 3 */
   .floating-spring,
   .floating-torus,
   .floating-cone {
-    opacity: 0.5;
-    transform: scale(0.6);
-  }
-
-  .spring-2,
-  .torus-2 {
     display: none;
   }
 
@@ -1188,21 +1170,17 @@ a:hover {
   }
 
   .sphere-1 {
-    width: 50px;
-    height: 50px;
-    top: 5%;
-    right: 5%;
+    width: 45px;
+    height: 45px;
+    top: 3%;
+    right: 3%;
   }
 
   .sphere-2 {
     width: 35px;
     height: 35px;
-    bottom: 30%;
-    left: 5%;
-  }
-
-  .sphere-3 {
-    display: none;
+    bottom: 5%;
+    left: 3%;
   }
 
   /* Product page mobile */

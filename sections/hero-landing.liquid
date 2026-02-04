@@ -72,25 +72,31 @@
     margin: 0;
   }
 
-  /* Arrow and CTA positioning */
-  .hero-arrow-wrapper {
-    position: relative;
-    width: 80px;
-    height: 100px;
-    margin-top: 1rem;
-    margin-left: 2rem;
+  /* CTA Button centered on page with arrow */
+  .hero-cta-wrapper {
+    position: absolute;
+    left: 50%;
+    top: 42%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .hero-cta-arrow {
-    width: 100%;
-    height: 100%;
+    width: 100px;
+    height: 80px;
     stroke: var(--color-text, #1a1a1a);
     stroke-width: 2;
+    fill: none;
+    margin-bottom: -5px;
+    margin-right: 60px;
   }
 
-  .hero-cta-container {
-    margin-top: -0.5rem;
-    margin-left: 1rem;
+  .hero-cta-wrapper .btn {
+    padding: 1.25rem 2.5rem;
+    font-size: 1.0625rem;
   }
 
   @media (max-width: 768px) {
@@ -104,20 +110,20 @@
       aspect-ratio: 1;
     }
 
-    .hero-arrow-wrapper {
-      width: 60px;
-      height: 80px;
-      margin-left: 1rem;
+    .hero-cta-wrapper {
+      position: relative;
+      left: auto;
+      top: auto;
+      transform: none;
+      margin: 2rem auto;
     }
 
-    .hero-cta-container {
-      margin-left: 0;
+    .hero-cta-arrow {
+      display: none;
     }
 
     .hero-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      text-align: center;
     }
 
     .hero-headline {
@@ -127,29 +133,33 @@
 {%- endstyle -%}
 
 <section class="hero-landing-section" data-section-id="{{ section.id }}">
-  <!-- Floating 3D Shapes - Spread across page -->
-  <div class="floating-sphere sphere-1"></div>
-  <div class="floating-sphere sphere-2"></div>
-  <div class="floating-sphere sphere-3"></div>
+  <!-- Floating 3D Shapes - 6 total, spread to edges away from text/button -->
 
-  <!-- Curly Springs -->
+  <!-- Top right area -->
+  <div class="floating-sphere sphere-1"></div>
+
+  <!-- Top left area -->
   <div class="floating-spring spring-1">
     <svg viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M20 5 C38 5, 38 18, 20 18 C2 18, 2 31, 20 31 C38 31, 38 44, 20 44 C2 44, 2 57, 20 57 C38 57, 38 70, 20 70 C2 70, 2 83, 20 83 C38 83, 38 96, 20 96" stroke="white" stroke-width="5" stroke-linecap="round" fill="none"/>
     </svg>
   </div>
+
+  <!-- Right side middle -->
+  <div class="floating-torus torus-1"></div>
+
+  <!-- Bottom right -->
+  <div class="floating-cone cone-1"></div>
+
+  <!-- Bottom left area -->
+  <div class="floating-sphere sphere-2"></div>
+
+  <!-- Far right -->
   <div class="floating-spring spring-2">
     <svg viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M20 5 C38 5, 38 18, 20 18 C2 18, 2 31, 20 31 C38 31, 38 44, 20 44 C2 44, 2 57, 20 57 C38 57, 38 70, 20 70 C2 70, 2 83, 20 83 C38 83, 38 96, 20 96" stroke="white" stroke-width="5" stroke-linecap="round" fill="none"/>
     </svg>
   </div>
-
-  <!-- 3D Torus/Donut -->
-  <div class="floating-torus torus-1"></div>
-  <div class="floating-torus torus-2"></div>
-
-  <!-- 3D Cone -->
-  <div class="floating-cone cone-1"></div>
 
   <!-- Circular Text Element with Lens -->
   <div class="circular-text-container">
@@ -202,36 +212,34 @@
     {%- endif -%}
   </div>
 
-  <!-- Hero Headline with Arrow pointing to CTA -->
+  <!-- CTA Button - Centered on page -->
+  <div class="hero-cta-wrapper">
+    <!-- Hand-drawn Arrow curving from headline area to button -->
+    <svg class="hero-cta-arrow" viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 5 5 Q 25 8 45 25 Q 75 50 95 85" stroke-linecap="round" fill="none"/>
+      <path d="M 88 78 L 96 88 L 100 76" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+
+    {%- liquid
+      if section.settings.button_link != blank
+        assign button_url = section.settings.button_link
+      elsif section.settings.featured_product != blank
+        assign button_url = section.settings.featured_product.url
+      else
+        assign button_url = '/collections/all'
+      endif
+    -%}
+    <a href="{{ button_url }}" class="btn btn-primary btn-with-check btn-large">
+      {{ section.settings.button_text | default: 'Add to cart' }}
+    </a>
+  </div>
+
+  <!-- Hero Headline -->
   <div class="hero-content">
     <h1 class="hero-headline">
       <span class="hero-headline-italic">{{ section.settings.headline_line1 | default: 'Mini' }}</span>
       <span>{{ section.settings.headline_line2 | default: 'DigiCam' }}</span>
     </h1>
-
-    <!-- Hand-drawn Arrow curving from headline to button -->
-    <div class="hero-arrow-wrapper">
-      <svg class="hero-cta-arrow" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
-        <path d="M 10 10 Q 20 50 50 70 Q 70 85 75 110" stroke-linecap="round" fill="none"/>
-        <path d="M 68 100 L 75 112 L 82 102" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      </svg>
-    </div>
-
-    <!-- CTA Button -->
-    <div class="hero-cta-container">
-      {%- liquid
-        if section.settings.button_link != blank
-          assign button_url = section.settings.button_link
-        elsif section.settings.featured_product != blank
-          assign button_url = section.settings.featured_product.url
-        else
-          assign button_url = '/collections/all'
-        endif
-      -%}
-      <a href="{{ button_url }}" class="btn btn-primary btn-with-check btn-large">
-        {{ section.settings.button_text | default: 'Add to cart' }}
-      </a>
-    </div>
   </div>
 </section>
 
