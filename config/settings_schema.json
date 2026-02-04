@@ -119,5 +119,97 @@
         "default": true
       }
     ]
+  },
+  {
+    "name": "Checkout",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Customize your checkout appearance. Note: Some settings require Shopify Plus or may need to be configured in Settings > Checkout in your Shopify admin."
+      },
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+        "type": "color",
+        "id": "checkout_accent_color",
+        "label": "Accent color",
+        "info": "Used for links, focus states, and highlights",
+        "default": "#1A1A1A"
+      },
+      {
+        "type": "color",
+        "id": "checkout_button_color",
+        "label": "Button color",
+        "default": "#1A1A1A"
+      },
+      {
+        "type": "color",
+        "id": "checkout_button_text_color",
+        "label": "Button text color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "checkout_error_color",
+        "label": "Error color",
+        "default": "#E53935"
+      },
+      {
+        "type": "header",
+        "content": "Background"
+      },
+      {
+        "type": "color",
+        "id": "checkout_main_background_color",
+        "label": "Main content background",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "checkout_sidebar_background_color",
+        "label": "Order summary background",
+        "default": "#FDF8F3"
+      },
+      {
+        "type": "header",
+        "content": "Text"
+      },
+      {
+        "type": "color",
+        "id": "checkout_heading_color",
+        "label": "Heading color",
+        "default": "#1A1A1A"
+      },
+      {
+        "type": "color",
+        "id": "checkout_body_color",
+        "label": "Body text color",
+        "default": "#1A1A1A"
+      },
+      {
+        "type": "color",
+        "id": "checkout_secondary_color",
+        "label": "Secondary text color",
+        "default": "#666666"
+      },
+      {
+        "type": "header",
+        "content": "Form fields"
+      },
+      {
+        "type": "color",
+        "id": "checkout_input_background",
+        "label": "Input background",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "checkout_input_border_color",
+        "label": "Input border color",
+        "default": "#E5E5E5"
+      }
+    ]
   }
 ]
