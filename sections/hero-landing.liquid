@@ -138,7 +138,7 @@
       {%- else -%}
         <img
           src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%231a1a1a'/%3E%3Ccircle cx='50' cy='50' r='35' fill='%23333'/%3E%3Ccircle cx='50' cy='50' r='20' fill='%23555'/%3E%3Ccircle cx='50' cy='50' r='10' fill='%23222'/%3E%3Ccircle cx='40' cy='40' r='5' fill='%23667799' opacity='0.5'/%3E%3C/svg%3E"
-          alt="Placeholder: Close-up macro shot of a Lomography camera lens, dark black glass with concentric rings, blue glass reflection highlights, chrome/silver ring around the lens edge, text LOMOGRAPHY 27MM F1.8 engraved on ring, product photography style"
+          alt="Camera lens"
           width="60"
           height="60"
           loading="eager"
@@ -152,7 +152,7 @@
     {%- if section.settings.product_image != blank -%}
       <img
         src="{{ section.settings.product_image | image_url: width: 1200 }}"
-        alt="{{ section.settings.product_image.alt | default: 'Mini DigiCam' }}"
+        alt="{{ section.settings.product_image.alt | default: shop.name }}"
         width="600"
         height="600"
         loading="eager"
@@ -160,7 +160,7 @@
     {%- else -%}
       <img
         src="{{ 'hero-camera.webp' | asset_url }}"
-        alt="Mini DigiCam"
+        alt="{{ shop.name }}"
         width="600"
         height="600"
         loading="eager"
@@ -199,12 +199,12 @@
 
 <script id="hero-3d-settings" type="application/json">
   {
-    "sphere1": { "x": {{ section.settings.sphere1_x }}, "y": {{ section.settings.sphere1_y }}, "rotation": {{ section.settings.sphere1_rotation }}, "visible": {{ section.settings.sphere1_visible }} },
-    "sphere2": { "x": {{ section.settings.sphere2_x }}, "y": {{ section.settings.sphere2_y }}, "rotation": {{ section.settings.sphere2_rotation }}, "visible": {{ section.settings.sphere2_visible }} },
-    "torus": { "x": {{ section.settings.torus_x }}, "y": {{ section.settings.torus_y }}, "rotation": {{ section.settings.torus_rotation }}, "visible": {{ section.settings.torus_visible }} },
-    "cone": { "x": {{ section.settings.cone_x }}, "y": {{ section.settings.cone_y }}, "rotation": {{ section.settings.cone_rotation }}, "visible": {{ section.settings.cone_visible }} },
-    "spring1": { "x": {{ section.settings.spring1_x }}, "y": {{ section.settings.spring1_y }}, "rotation": {{ section.settings.spring1_rotation }}, "visible": {{ section.settings.spring1_visible }} },
-    "spring2": { "x": {{ section.settings.spring2_x }}, "y": {{ section.settings.spring2_y }}, "rotation": {{ section.settings.spring2_rotation }}, "visible": {{ section.settings.spring2_visible }} }
+    "sphere1": { "x": {{ section.settings.sphere1_x | divided_by: 10.0 }}, "y": {{ section.settings.sphere1_y | divided_by: 10.0 }}, "rotation": {{ section.settings.sphere1_rotation }}, "visible": {{ section.settings.sphere1_visible }} },
+    "sphere2": { "x": {{ section.settings.sphere2_x | divided_by: 10.0 }}, "y": {{ section.settings.sphere2_y | divided_by: 10.0 }}, "rotation": {{ section.settings.sphere2_rotation }}, "visible": {{ section.settings.sphere2_visible }} },
+    "torus": { "x": {{ section.settings.torus_x | divided_by: 10.0 }}, "y": {{ section.settings.torus_y | divided_by: 10.0 }}, "rotation": {{ section.settings.torus_rotation }}, "visible": {{ section.settings.torus_visible }} },
+    "cone": { "x": {{ section.settings.cone_x | divided_by: 10.0 }}, "y": {{ section.settings.cone_y | divided_by: 10.0 }}, "rotation": {{ section.settings.cone_rotation }}, "visible": {{ section.settings.cone_visible }} },
+    "spring1": { "x": {{ section.settings.spring1_x | divided_by: 10.0 }}, "y": {{ section.settings.spring1_y | divided_by: 10.0 }}, "rotation": {{ section.settings.spring1_rotation }}, "visible": {{ section.settings.spring1_visible }} },
+    "spring2": { "x": {{ section.settings.spring2_x | divided_by: 10.0 }}, "y": {{ section.settings.spring2_y | divided_by: 10.0 }}, "rotation": {{ section.settings.spring2_rotation }}, "visible": {{ section.settings.spring2_visible }} }
   }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -486,19 +486,19 @@
       "type": "range",
       "id": "sphere1_x",
       "label": "Horizontal position",
-      "min": -8,
-      "max": 8,
-      "step": 0.5,
-      "default": 5.5
+      "min": -80,
+      "max": 80,
+      "step": 5,
+      "default": 55
     },
     {
       "type": "range",
       "id": "sphere1_y",
       "label": "Vertical position",
-      "min": -5,
-      "max": 5,
-      "step": 0.5,
-      "default": 3.5
+      "min": -50,
+      "max": 50,
+      "step": 5,
+      "default": 35
     },
     {
       "type": "range",
@@ -524,19 +524,19 @@
       "type": "range",
       "id": "sphere2_x",
       "label": "Horizontal position",
-      "min": -8,
-      "max": 8,
-      "step": 0.5,
-      "default": -5.5
+      "min": -80,
+      "max": 80,
+      "step": 5,
+      "default": -55
     },
     {
       "type": "range",
       "id": "sphere2_y",
       "label": "Vertical position",
-      "min": -5,
-      "max": 5,
-      "step": 0.5,
-      "default": -3
+      "min": -50,
+      "max": 50,
+      "step": 5,
+      "default": -30
     },
     {
       "type": "range",
@@ -562,19 +562,19 @@
       "type": "range",
       "id": "torus_x",
       "label": "Horizontal position",
-      "min": -8,
-      "max": 8,
-      "step": 0.5,
-      "default": 6
+      "min": -80,
+      "max": 80,
+      "step": 5,
+      "default": 60
     },
     {
       "type": "range",
       "id": "torus_y",
       "label": "Vertical position",
-      "min": -5,
-      "max": 5,
-      "step": 0.5,
-      "default": 1.5
+      "min": -50,
+      "max": 50,
+      "step": 5,
+      "default": 15
     },
     {
       "type": "range",
@@ -600,19 +600,19 @@
       "type": "range",
       "id": "cone_x",
       "label": "Horizontal position",
-      "min": -8,
-      "max": 8,
-      "step": 0.5,
-      "default": 4
+      "min": -80,
+      "max": 80,
+      "step": 5,
+      "default": 40
     },
     {
       "type": "range",
       "id": "cone_y",
       "label": "Vertical position",
-      "min": -5,
-      "max": 5,
-      "step": 0.5,
-      "default": -2.5
+      "min": -50,
+      "max": 50,
+      "step": 5,
+      "default": -25
     },
     {
       "type": "range",
@@ -621,7 +621,7 @@
       "min": -90,
       "max": 90,
       "step": 5,
-      "default": 17,
+      "default": 15,
       "unit": "°"
     },
     {
@@ -638,19 +638,19 @@
       "type": "range",
       "id": "spring1_x",
       "label": "Horizontal position",
-      "min": -8,
-      "max": 8,
-      "step": 0.5,
-      "default": -5.5
+      "min": -80,
+      "max": 80,
+      "step": 5,
+      "default": -55
     },
     {
       "type": "range",
       "id": "spring1_y",
       "label": "Vertical position",
-      "min": -5,
-      "max": 5,
-      "step": 0.5,
-      "default": 3
+      "min": -50,
+      "max": 50,
+      "step": 5,
+      "default": 30
     },
     {
       "type": "range",
@@ -659,7 +659,7 @@
       "min": -90,
       "max": 90,
       "step": 5,
-      "default": -11,
+      "default": -10,
       "unit": "°"
     },
     {
@@ -676,19 +676,19 @@
       "type": "range",
       "id": "spring2_x",
       "label": "Horizontal position",
-      "min": -8,
-      "max": 8,
-      "step": 0.5,
-      "default": 6.5
+      "min": -80,
+      "max": 80,
+      "step": 5,
+      "default": 65
     },
     {
       "type": "range",
       "id": "spring2_y",
       "label": "Vertical position",
-      "min": -5,
-      "max": 5,
-      "step": 0.5,
-      "default": -1
+      "min": -50,
+      "max": 50,
+      "step": 5,
+      "default": -10
     },
     {
       "type": "range",
@@ -697,7 +697,7 @@
       "min": -90,
       "max": 90,
       "step": 5,
-      "default": 11,
+      "default": 10,
       "unit": "°"
     },
     {

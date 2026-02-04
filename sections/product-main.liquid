@@ -33,7 +33,7 @@
             <img
               id="product-main-img"
               src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Crect fill='%23f5f0eb' width='600' height='600'/%3E%3Ctext x='50%25' y='50%25' fill='%23999' text-anchor='middle' dy='.3em' font-family='sans-serif'%3EProduct Image%3C/text%3E%3C/svg%3E"
-              alt="Placeholder: Mini digital camera product shot, palm-sized orange camera on clean white background, showing front view with lens and flash"
+              alt="{{ current_product.title | default: 'Product image' }}"
               width="600"
               height="600"
               loading="eager"
@@ -169,14 +169,6 @@
         <div class="product-description">
           {%- if current_product.description != blank -%}
             {{ current_product.description }}
-          {%- else -%}
-            <p><strong>Your pocket-sized time machine.</strong></p>
-
-            <p>Turn every moment into a celebration of fun and nostalgia. This palm-sized wonder clips right onto your bag—part charm, part camera, all magic. Snap street scenes. Record party highlights. Capture quality moments. All without missing a beat.</p>
-
-            <p>The built-in flash means low-light? No problem. The 180° flip screen means selfies? Always sharp. Multiple filters mean boring photos? Never heard of them.</p>
-
-            <p>At just 30g, you'll forget it's there—until you need it. Then you'll wonder how you ever lived without it.</p>
           {%- endif -%}
         </div>
 

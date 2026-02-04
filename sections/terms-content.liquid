@@ -1,35 +1,7 @@
 {%- comment -%}
-  Sample Terms of Service content.
-  Create a page called "Terms" with handle "terms" and assign it the "page.terms" template.
-
-  Suggested page content to copy:
-
-  <h2>Terms of Service</h2>
-  <p>Last updated: [DATE]</p>
-
-  <h3>1. Agreement to Terms</h3>
-  <p>By accessing or using Mini DigiCam's website and purchasing our products, you agree to be bound by these Terms of Service.</p>
-
-  <h3>2. Products</h3>
-  <p>All products are subject to availability. We reserve the right to discontinue any product at any time. Colors and specifications may vary slightly from images shown.</p>
-
-  <h3>3. Pricing and Payment</h3>
-  <p>All prices are listed in [CURRENCY] and are subject to change without notice. Payment is required at the time of purchase. We accept major credit cards and other payment methods as displayed at checkout.</p>
-
-  <h3>4. Shipping</h3>
-  <p>We ship worldwide. Delivery times vary by location. Shipping costs are calculated at checkout. We are not responsible for customs duties or taxes that may apply to international orders.</p>
-
-  <h3>5. Returns and Refunds</h3>
-  <p>We accept returns within 30 days of delivery for unused items in original packaging. Refunds will be processed to the original payment method within 5-10 business days of receiving the returned item.</p>
-
-  <h3>6. Warranty</h3>
-  <p>Our products come with a [X]-day limited warranty covering manufacturing defects. This warranty does not cover damage from misuse, accidents, or normal wear and tear.</p>
-
-  <h3>7. Limitation of Liability</h3>
-  <p>Mini DigiCam shall not be liable for any indirect, incidental, or consequential damages arising from the use of our products or services.</p>
-
-  <h3>8. Contact</h3>
-  <p>For questions about these Terms, please contact us at [EMAIL].</p>
+  Terms of Service content section.
+  The default content uses {{ shop.name }} and {{ shop.email }} dynamically.
+  You can override with custom content in the section settings.
 {%- endcomment -%}
 
 <section class="page-section" data-section-id="{{ section.id }}">
@@ -45,7 +17,7 @@
         <p>Last updated: {{ 'now' | date: '%B %d, %Y' }}</p>
 
         <h2>1. Agreement to Terms</h2>
-        <p>By accessing or using Mini DigiCam's website and purchasing our products, you agree to be bound by these Terms of Service.</p>
+        <p>By accessing or using {{ shop.name }}'s website and purchasing our products, you agree to be bound by these Terms of Service.</p>
 
         <h2>2. Products</h2>
         <p>All products are subject to availability. We reserve the right to discontinue any product at any time. Colors and specifications may vary slightly from images shown.</p>
@@ -63,7 +35,7 @@
         <p>Our products come with a 90-day limited warranty covering manufacturing defects. This warranty does not cover damage from misuse, accidents, or normal wear and tear.</p>
 
         <h2>7. Limitation of Liability</h2>
-        <p>Mini DigiCam shall not be liable for any indirect, incidental, or consequential damages arising from the use of our products or services.</p>
+        <p>{{ shop.name }} shall not be liable for any indirect, incidental, or consequential damages arising from the use of our products or services.</p>
 
         <h2>8. Contact</h2>
         <p>For questions about these Terms, please contact us at {{ shop.email }}.</p>
