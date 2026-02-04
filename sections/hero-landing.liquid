@@ -78,6 +78,10 @@
     z-index: 1;
   }
 
+  .circular-text-container .circular-text text {
+    font-size: {{ section.settings.circular_text_size }}px;
+  }
+
   @media (max-width: 768px) {
     .hero-landing-section {
       padding: 1.5rem;
@@ -159,7 +163,7 @@
     }
 
     .circular-text-container .circular-text text {
-      font-size: 5px;
+      font-size: {{ section.settings.circular_text_mobile_size }}px;
     }
 
     #hero-3d-canvas {
@@ -1058,6 +1062,26 @@
       "id": "circular_text",
       "label": "Circular text",
       "default": "point and shoot  point and shoot  "
+    },
+    {
+      "type": "range",
+      "id": "circular_text_size",
+      "label": "Text size - Desktop",
+      "min": 6,
+      "max": 16,
+      "step": 1,
+      "default": 11,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "circular_text_mobile_size",
+      "label": "Text size - Mobile",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
     },
     {
       "type": "image_picker",
