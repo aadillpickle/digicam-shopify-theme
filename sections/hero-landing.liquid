@@ -81,7 +81,7 @@
   @media (max-width: 768px) {
     .hero-landing-section {
       padding: 1.5rem;
-      padding-top: 80px;
+      padding-top: calc(80px + var(--announcement-banner-height, 0px));
       min-height: 100svh;
       display: flex;
       flex-direction: column;
@@ -150,7 +150,7 @@
     }
 
     .circular-text-container .circular-text text {
-      font-size: 5px;
+      font-size: 8px;
     }
 
     #hero-3d-canvas {

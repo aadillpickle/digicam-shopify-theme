@@ -11,6 +11,18 @@
   "type": "header",
   "name": "Header group",
   "sections": {
+    "announcement-banner": {
+      "type": "announcement-banner",
+      "settings": {
+        "show_banner": true,
+        "text": "Free shipping on orders over $50",
+        "background_color": "#1A1A1A",
+        "text_color": "#FFFFFF",
+        "text_size": 14,
+        "padding_vertical": 12,
+        "show_close_button": false
+      }
+    },
     "header": {
       "type": "header",
       "settings": {
@@ -20,6 +32,7 @@
     }
   },
   "order": [
+    "announcement-banner",
     "header"
   ]
 }
