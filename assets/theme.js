@@ -66,6 +66,10 @@ function initAddToCart() {
   const forms = document.querySelectorAll('[data-product-form], form[action*="/cart/add"]');
 
   forms.forEach(form => {
+    if (form.id === 'cart-checkout-form' || form.querySelector('[name="checkout"]')) {
+      return;
+    }
+    
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 

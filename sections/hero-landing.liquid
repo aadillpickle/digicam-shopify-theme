@@ -60,6 +60,7 @@
     stroke-width: 2;
     fill: none;
     margin-top: {{ section.settings.arrow_offset }}px;
+    transform: rotate({{ section.settings.arrow_rotation }}deg);
   }
 
   .hero-cta-wrapper .btn {
@@ -196,11 +197,24 @@
   </div>
 </section>
 
+<script id="hero-3d-settings" type="application/json">
+  {
+    "sphere1": { "x": {{ section.settings.sphere1_x }}, "y": {{ section.settings.sphere1_y }}, "rotation": {{ section.settings.sphere1_rotation }}, "visible": {{ section.settings.sphere1_visible }} },
+    "sphere2": { "x": {{ section.settings.sphere2_x }}, "y": {{ section.settings.sphere2_y }}, "rotation": {{ section.settings.sphere2_rotation }}, "visible": {{ section.settings.sphere2_visible }} },
+    "torus": { "x": {{ section.settings.torus_x }}, "y": {{ section.settings.torus_y }}, "rotation": {{ section.settings.torus_rotation }}, "visible": {{ section.settings.torus_visible }} },
+    "cone": { "x": {{ section.settings.cone_x }}, "y": {{ section.settings.cone_y }}, "rotation": {{ section.settings.cone_rotation }}, "visible": {{ section.settings.cone_visible }} },
+    "spring1": { "x": {{ section.settings.spring1_x }}, "y": {{ section.settings.spring1_y }}, "rotation": {{ section.settings.spring1_rotation }}, "visible": {{ section.settings.spring1_visible }} },
+    "spring2": { "x": {{ section.settings.spring2_x }}, "y": {{ section.settings.spring2_y }}, "rotation": {{ section.settings.spring2_rotation }}, "visible": {{ section.settings.spring2_visible }} }
+  }
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (function() {
   const canvas = document.getElementById('hero-3d-canvas');
   if (!canvas) return;
+
+  const settingsEl = document.getElementById('hero-3d-settings');
+  const settings = settingsEl ? JSON.parse(settingsEl.textContent) : {};
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -229,31 +243,45 @@
 
   const shapes = [];
 
-  const sphereGeo1 = new THREE.SphereGeometry(0.8, 32, 32);
-  const sphere1 = new THREE.Mesh(sphereGeo1, whiteMaterial);
-  sphere1.position.set(5.5, 3.5, 0);
-  scene.add(sphere1);
-  shapes.push({ mesh: sphere1, baseY: 3.5, speed: 0.8, amplitude: 0.3 });
+  const s1 = settings.sphere1 || { x: 5.5, y: 3.5, rotation: 0, visible: true };
+  if (s1.visible) {
+    const sphereGeo1 = new THREE.SphereGeometry(0.8, 32, 32);
+    const sphere1 = new THREE.Mesh(sphereGeo1, whiteMaterial);
+    sphere1.position.set(s1.x, s1.y, 0);
+    sphere1.rotation.z = s1.rotation * Math.PI / 180;
+    scene.add(sphere1);
+    shapes.push({ mesh: sphere1, baseY: s1.y, speed: 0.8, amplitude: 0.3 });
+  }
 
-  const sphereGeo2 = new THREE.SphereGeometry(0.6, 32, 32);
-  const sphere2 = new THREE.Mesh(sphereGeo2, whiteMaterial);
-  sphere2.position.set(-5.5, -3, 0);
-  scene.add(sphere2);
-  shapes.push({ mesh: sphere2, baseY: -3, speed: 1.0, amplitude: 0.25 });
+  const s2 = settings.sphere2 || { x: -5.5, y: -3, rotation: 0, visible: true };
+  if (s2.visible) {
+    const sphereGeo2 = new THREE.SphereGeometry(0.6, 32, 32);
+    const sphere2 = new THREE.Mesh(sphereGeo2, whiteMaterial);
+    sphere2.position.set(s2.x, s2.y, 0);
+    sphere2.rotation.z = s2.rotation * Math.PI / 180;
+    scene.add(sphere2);
+    shapes.push({ mesh: sphere2, baseY: s2.y, speed: 1.0, amplitude: 0.25 });
+  }
 
-  const torusGeo = new THREE.TorusGeometry(0.6, 0.2, 16, 48);
-  const torus = new THREE.Mesh(torusGeo, whiteMaterial);
-  torus.position.set(6, 1.5, 0);
-  torus.rotation.x = Math.PI / 3;
-  scene.add(torus);
-  shapes.push({ mesh: torus, baseY: 1.5, speed: 0.7, amplitude: 0.2, rotate: true });
+  const t = settings.torus || { x: 6, y: 1.5, rotation: 60, visible: true };
+  if (t.visible) {
+    const torusGeo = new THREE.TorusGeometry(0.6, 0.2, 16, 48);
+    const torus = new THREE.Mesh(torusGeo, whiteMaterial);
+    torus.position.set(t.x, t.y, 0);
+    torus.rotation.x = t.rotation * Math.PI / 180;
+    scene.add(torus);
+    shapes.push({ mesh: torus, baseY: t.y, speed: 0.7, amplitude: 0.2, rotate: true });
+  }
 
-  const coneGeo = new THREE.ConeGeometry(0.5, 1.2, 32);
-  const cone = new THREE.Mesh(coneGeo, whiteMaterial);
-  cone.position.set(4, -2.5, 0);
-  cone.rotation.z = 0.3;
-  scene.add(cone);
-  shapes.push({ mesh: cone, baseY: -2.5, speed: 0.9, amplitude: 0.2, rotate: true });
+  const c = settings.cone || { x: 4, y: -2.5, rotation: 17, visible: true };
+  if (c.visible) {
+    const coneGeo = new THREE.ConeGeometry(0.5, 1.2, 32);
+    const cone = new THREE.Mesh(coneGeo, whiteMaterial);
+    cone.position.set(c.x, c.y, 0);
+    cone.rotation.z = c.rotation * Math.PI / 180;
+    scene.add(cone);
+    shapes.push({ mesh: cone, baseY: c.y, speed: 0.9, amplitude: 0.2, rotate: true });
+  }
 
   function createSpring(x, y, rotation) {
     const springGroup = new THREE.Group();
@@ -263,10 +291,10 @@
     const radius = 0.3;
     
     for (let i = 0; i <= coils * 20; i++) {
-      const t = i / (coils * 20);
-      const angle = t * coils * Math.PI * 2;
+      const ti = i / (coils * 20);
+      const angle = ti * coils * Math.PI * 2;
       const px = Math.cos(angle) * radius;
-      const py = t * height - height / 2;
+      const py = ti * height - height / 2;
       const pz = Math.sin(angle) * radius;
       curve.points.push(new THREE.Vector3(px, py, pz));
     }
@@ -275,16 +303,22 @@
     const spring = new THREE.Mesh(tubeGeo, whiteMaterial);
     springGroup.add(spring);
     springGroup.position.set(x, y, 0);
-    springGroup.rotation.z = rotation;
+    springGroup.rotation.z = rotation * Math.PI / 180;
     scene.add(springGroup);
     return springGroup;
   }
 
-  const spring1 = createSpring(-5.5, 3, -0.2);
-  shapes.push({ mesh: spring1, baseY: 3, speed: 0.6, amplitude: 0.25, rotate: true });
+  const sp1 = settings.spring1 || { x: -5.5, y: 3, rotation: -11, visible: true };
+  if (sp1.visible) {
+    const spring1 = createSpring(sp1.x, sp1.y, sp1.rotation);
+    shapes.push({ mesh: spring1, baseY: sp1.y, speed: 0.6, amplitude: 0.25, rotate: true });
+  }
 
-  const spring2 = createSpring(6.5, -1, 0.2);
-  shapes.push({ mesh: spring2, baseY: -1, speed: 0.75, amplitude: 0.2, rotate: true });
+  const sp2 = settings.spring2 || { x: 6.5, y: -1, rotation: 11, visible: true };
+  if (sp2.visible) {
+    const spring2 = createSpring(sp2.x, sp2.y, sp2.rotation);
+    shapes.push({ mesh: spring2, baseY: sp2.y, speed: 0.75, amplitude: 0.2, rotate: true });
+  }
 
   let time = 0;
 
@@ -427,6 +461,244 @@
       "step": 2,
       "default": 8,
       "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "arrow_rotation",
+      "label": "Arrow rotation",
+      "min": -180,
+      "max": 180,
+      "step": 5,
+      "default": 0,
+      "unit": "°"
+    },
+    {
+      "type": "header",
+      "content": "🔵 Sphere 1 (top right)"
+    },
+    {
+      "type": "checkbox",
+      "id": "sphere1_visible",
+      "label": "Show sphere 1",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "sphere1_x",
+      "label": "Horizontal position",
+      "min": -8,
+      "max": 8,
+      "step": 0.5,
+      "default": 5.5
+    },
+    {
+      "type": "range",
+      "id": "sphere1_y",
+      "label": "Vertical position",
+      "min": -5,
+      "max": 5,
+      "step": 0.5,
+      "default": 3.5
+    },
+    {
+      "type": "range",
+      "id": "sphere1_rotation",
+      "label": "Rotation",
+      "min": -180,
+      "max": 180,
+      "step": 5,
+      "default": 0,
+      "unit": "°"
+    },
+    {
+      "type": "header",
+      "content": "🔵 Sphere 2 (bottom left)"
+    },
+    {
+      "type": "checkbox",
+      "id": "sphere2_visible",
+      "label": "Show sphere 2",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "sphere2_x",
+      "label": "Horizontal position",
+      "min": -8,
+      "max": 8,
+      "step": 0.5,
+      "default": -5.5
+    },
+    {
+      "type": "range",
+      "id": "sphere2_y",
+      "label": "Vertical position",
+      "min": -5,
+      "max": 5,
+      "step": 0.5,
+      "default": -3
+    },
+    {
+      "type": "range",
+      "id": "sphere2_rotation",
+      "label": "Rotation",
+      "min": -180,
+      "max": 180,
+      "step": 5,
+      "default": 0,
+      "unit": "°"
+    },
+    {
+      "type": "header",
+      "content": "🍩 Torus / Donut (right)"
+    },
+    {
+      "type": "checkbox",
+      "id": "torus_visible",
+      "label": "Show torus",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "torus_x",
+      "label": "Horizontal position",
+      "min": -8,
+      "max": 8,
+      "step": 0.5,
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "torus_y",
+      "label": "Vertical position",
+      "min": -5,
+      "max": 5,
+      "step": 0.5,
+      "default": 1.5
+    },
+    {
+      "type": "range",
+      "id": "torus_rotation",
+      "label": "Tilt angle",
+      "min": 0,
+      "max": 180,
+      "step": 5,
+      "default": 60,
+      "unit": "°"
+    },
+    {
+      "type": "header",
+      "content": "🔺 Cone (bottom right)"
+    },
+    {
+      "type": "checkbox",
+      "id": "cone_visible",
+      "label": "Show cone",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "cone_x",
+      "label": "Horizontal position",
+      "min": -8,
+      "max": 8,
+      "step": 0.5,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "cone_y",
+      "label": "Vertical position",
+      "min": -5,
+      "max": 5,
+      "step": 0.5,
+      "default": -2.5
+    },
+    {
+      "type": "range",
+      "id": "cone_rotation",
+      "label": "Tilt angle",
+      "min": -90,
+      "max": 90,
+      "step": 5,
+      "default": 17,
+      "unit": "°"
+    },
+    {
+      "type": "header",
+      "content": "🌀 Spring 1 (top left)"
+    },
+    {
+      "type": "checkbox",
+      "id": "spring1_visible",
+      "label": "Show spring 1",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "spring1_x",
+      "label": "Horizontal position",
+      "min": -8,
+      "max": 8,
+      "step": 0.5,
+      "default": -5.5
+    },
+    {
+      "type": "range",
+      "id": "spring1_y",
+      "label": "Vertical position",
+      "min": -5,
+      "max": 5,
+      "step": 0.5,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "spring1_rotation",
+      "label": "Tilt angle",
+      "min": -90,
+      "max": 90,
+      "step": 5,
+      "default": -11,
+      "unit": "°"
+    },
+    {
+      "type": "header",
+      "content": "🌀 Spring 2 (right side)"
+    },
+    {
+      "type": "checkbox",
+      "id": "spring2_visible",
+      "label": "Show spring 2",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "spring2_x",
+      "label": "Horizontal position",
+      "min": -8,
+      "max": 8,
+      "step": 0.5,
+      "default": 6.5
+    },
+    {
+      "type": "range",
+      "id": "spring2_y",
+      "label": "Vertical position",
+      "min": -5,
+      "max": 5,
+      "step": 0.5,
+      "default": -1
+    },
+    {
+      "type": "range",
+      "id": "spring2_rotation",
+      "label": "Tilt angle",
+      "min": -90,
+      "max": 90,
+      "step": 5,
+      "default": 11,
+      "unit": "°"
     },
     {
       "type": "header",
