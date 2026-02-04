@@ -1190,7 +1190,7 @@ a:hover {
   .hero-landing,
   .hero-landing-section {
     padding: var(--spacing-md);
-    padding-top: 80px;
+    padding-top: 100px;
     min-height: 100svh;
     justify-content: flex-start;
     align-items: center;
@@ -1211,22 +1211,22 @@ a:hover {
   .circular-text-container {
     position: absolute;
     right: 1rem;
-    top: 85px;
+    top: 90px;
     left: auto;
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     margin: 0;
     order: 4;
     z-index: 10;
   }
 
   .circular-text-container .circular-lens {
-    width: 25px;
-    height: 25px;
+    width: 35px;
+    height: 35px;
   }
 
   .circular-text-container .circular-text text {
-    font-size: 5px;
+    font-size: 7px;
   }
 
   .hero-cta-container,
@@ -1255,11 +1255,12 @@ a:hover {
 
   .hero-content {
     padding-bottom: 0;
+    padding-top: var(--spacing-xl);
     order: 1;
   }
 
   .hero-headline {
-    font-size: clamp(2.5rem, 12vw, 4rem);
+    font-size: var(--mobile-headline-size, clamp(2.5rem, 12vw, 4rem));
     text-align: center;
     margin-bottom: 0;
   }
