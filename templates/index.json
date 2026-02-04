@@ -1,9 +1,60 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "hero-landing",
-      "settings": {}
+      "settings": {
+        "headline_line1": "Mini",
+        "headline_line2": "DigiCam",
+        "featured_product": "mini-digi-cam",
+        "button_text": "Add to cart",
+        "button_link": "",
+        "button_horizontal_position": 28,
+        "button_vertical_position": 35,
+        "arrow_length": 50,
+        "arrow_width": 40,
+        "arrow_offset": 8,
+        "arrow_rotation": 0,
+        "sphere1_visible": true,
+        "sphere1_x": 55,
+        "sphere1_y": 35,
+        "sphere1_rotation": 0,
+        "sphere2_visible": true,
+        "sphere2_x": -55,
+        "sphere2_y": -30,
+        "sphere2_rotation": 0,
+        "torus_visible": true,
+        "torus_x": 60,
+        "torus_y": 15,
+        "torus_rotation": 60,
+        "cone_visible": true,
+        "cone_x": 40,
+        "cone_y": -25,
+        "cone_rotation": 15,
+        "spring1_visible": true,
+        "spring1_x": -55,
+        "spring1_y": 30,
+        "spring1_rotation": -10,
+        "spring2_visible": true,
+        "spring2_x": 65,
+        "spring2_y": -10,
+        "spring2_rotation": 10,
+        "circular_text": "point and shoot  point and shoot",
+        "background_color": "#fdf8f3",
+        "gradient_lavender": "#e8e0f0",
+        "gradient_peach": "#ffdab3"
+      }
     }
   },
-  "order": ["hero"]
+  "order": [
+    "hero"
+  ]
 }
