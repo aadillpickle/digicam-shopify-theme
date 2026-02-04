@@ -852,7 +852,7 @@ a:hover {
   padding: var(--spacing-lg);
   padding-left: 0;
   border-bottom: 1px solid var(--color-border);
-  align-items: start;
+  align-items: center;
 }
 
 .cart-item-image {
@@ -1328,7 +1328,7 @@ a:hover {
   .cart-item {
     grid-template-columns: 80px 1fr auto;
     gap: var(--spacing-sm);
-    align-items: start;
+    align-items: center;
   }
 
   .cart-item-image {
