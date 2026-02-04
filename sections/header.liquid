@@ -30,9 +30,10 @@
     opacity: 0.7;
   }
 
-  .site-header__logo svg {
-    width: 32px;
-    height: 32px;
+  .site-header__logo img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
   }
 
   .site-header__cart {
@@ -88,24 +89,23 @@
 <header class="site-header" data-section-id="{{ section.id }}">
   <!-- Camera Logo -->
   <a href="/" class="site-header__logo" title="Home">
-    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Camera body -->
-      <rect x="2" y="8" width="28" height="20" rx="3" fill="currentColor"/>
-      <!-- Lens outer -->
-      <circle cx="16" cy="18" r="7" fill="#FDF8F3"/>
-      <!-- Lens middle -->
-      <circle cx="16" cy="18" r="5" fill="#333"/>
-      <!-- Lens inner -->
-      <circle cx="16" cy="18" r="2.5" fill="#555"/>
-      <!-- Lens reflection -->
-      <circle cx="14.5" cy="16.5" r="1" fill="#8899bb" opacity="0.5"/>
-      <!-- Flash -->
-      <rect x="22" y="10" width="5" height="3" rx="1" fill="#FDF8F3"/>
-      <!-- Viewfinder -->
-      <circle cx="7" cy="12" r="2" fill="#555"/>
-      <!-- Top bump -->
-      <rect x="10" y="5" width="8" height="4" rx="1" fill="currentColor"/>
-    </svg>
+    {%- if section.settings.logo_image != blank -%}
+      <img
+        src="{{ section.settings.logo_image | image_url: width: 72 }}"
+        alt="{{ shop.name }}"
+        width="36"
+        height="36"
+        loading="eager"
+      >
+    {%- else -%}
+      <img
+        src="{{ 'logo-camera.webp' | asset_url }}"
+        alt="{{ shop.name }}"
+        width="36"
+        height="36"
+        loading="eager"
+      >
+    {%- endif -%}
   </a>
 
   <!-- Shopping Cart -->
@@ -122,6 +122,13 @@
 {% schema %}
 {
   "name": "Header",
-  "settings": []
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Logo image",
+      "info": "Recommended size: 72x72px. Leave empty to use default camera logo."
+    }
+  ]
 }
 {% endschema %}

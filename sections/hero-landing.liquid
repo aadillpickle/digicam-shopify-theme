@@ -43,35 +43,6 @@
     pointer-events: none;
   }
 
-  .hero-product-placeholder {
-    width: 100%;
-    aspect-ratio: 1.2;
-    background: linear-gradient(135deg, #f0ebe5 0%, #e8e3dd 100%);
-    border: 3px dashed #ccc;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 2rem;
-  }
-
-  .placeholder-text {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    font-weight: 500;
-    color: #888;
-    margin: 0 0 0.5rem;
-  }
-
-  .placeholder-hint {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: #aaa;
-    margin: 0;
-  }
-
   /* CTA Button centered on page with arrow */
   .hero-cta-wrapper {
     position: absolute;
@@ -104,10 +75,6 @@
       padding: 1.5rem;
       padding-top: 80px;
       min-height: 100svh;
-    }
-
-    .hero-product-placeholder {
-      aspect-ratio: 1;
     }
 
     .hero-cta-wrapper {
@@ -205,10 +172,13 @@
         loading="eager"
       >
     {%- else -%}
-      <div class="hero-product-placeholder">
-        <p class="placeholder-text">Upload your camera image here</p>
-        <p class="placeholder-hint">Use a transparent PNG, rotated ~15° clockwise</p>
-      </div>
+      <img
+        src="{{ 'hero-camera.webp' | asset_url }}"
+        alt="Mini DigiCam"
+        width="600"
+        height="600"
+        loading="eager"
+      >
     {%- endif -%}
   </div>
 
@@ -277,7 +247,8 @@
     {
       "type": "image_picker",
       "id": "product_image",
-      "label": "Product image"
+      "label": "Hero product image",
+      "info": "Leave empty to use default camera image. Recommended: transparent PNG."
     },
     {
       "type": "text",
