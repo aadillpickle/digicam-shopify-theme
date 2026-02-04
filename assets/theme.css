@@ -266,6 +266,16 @@ a:hover {
 
 .main-content {
   min-height: 100vh;
+  background-color: var(--color-background);
+}
+
+.template-index .main-content {
+  background: linear-gradient(
+    to bottom,
+    var(--color-background) 0%,
+    var(--color-background) 60%,
+    #FFDAB3 100%
+  );
 }
 
 /* Grid */
@@ -1126,7 +1136,12 @@ a:hover {
 /* Footer */
 .footer {
   padding: var(--spacing-2xl) var(--spacing-md);
-  background-color: var(--color-background-warm);
+  background: linear-gradient(
+    to bottom,
+    #FFDAB3 0%,
+    var(--color-background-warm) 100%
+  );
+  margin-top: 0;
 }
 
 .footer-content {
@@ -1187,11 +1202,25 @@ a:hover {
 
 /* Responsive - Mobile */
 @media (max-width: 768px) {
+  .main-content {
+    margin-bottom: 0;
+  }
+
+  .template-index .main-content {
+    background: linear-gradient(
+      to bottom,
+      var(--color-background) 0%,
+      var(--color-background) 50%,
+      #FFDAB3 100%
+    );
+  }
+
   .hero-landing,
   .hero-landing-section {
     padding: var(--spacing-md);
     padding-top: 100px;
-    min-height: 100svh;
+    padding-bottom: var(--spacing-xl);
+    min-height: auto;
     justify-content: flex-start;
     align-items: center;
   }
@@ -1250,9 +1279,6 @@ a:hover {
   }
 
   .hero-cta-arrow {
-    display: block;
-    width: 30px;
-    height: 40px;
     margin-top: 8px;
   }
 
