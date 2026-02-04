@@ -1213,20 +1213,20 @@ a:hover {
     right: 1rem;
     top: 90px;
     left: auto;
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
     margin: 0;
     order: 4;
     z-index: 10;
   }
 
   .circular-text-container .circular-lens {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
   }
 
   .circular-text-container .circular-text text {
-    font-size: 7px;
+    font-size: 9px;
   }
 
   .hero-cta-container,
@@ -1250,7 +1250,10 @@ a:hover {
   }
 
   .hero-cta-arrow {
-    display: none;
+    display: block;
+    width: 30px;
+    height: 40px;
+    margin-top: 8px;
   }
 
   .hero-content {

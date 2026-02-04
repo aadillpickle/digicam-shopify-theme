@@ -131,7 +131,10 @@
     }
 
     .hero-cta-arrow {
-      display: none;
+      display: block;
+      width: 30px;
+      height: 40px;
+      margin-top: 8px;
     }
 
     .circular-text-container {
@@ -156,6 +159,7 @@
 
     #hero-3d-canvas {
       opacity: 1;
+      z-index: 1;
     }
   }
 {%- endstyle -%}
@@ -299,7 +303,7 @@
     sphere1.position.set(s1.x, s1.y, 0);
     sphere1.rotation.z = s1.rotation * Math.PI / 180;
     scene.add(sphere1);
-    shapes.push({ mesh: sphere1, baseY: s1.y, speed: 0.8, amplitude: 0.3 });
+    shapes.push({ mesh: sphere1, baseX: s1.x, baseY: s1.y, speed: 0.8, amplitude: 0.3 });
   }
 
   const s2 = settings.sphere2 || { x: -5.5, y: -3, rotation: 0, visible: true };
@@ -309,7 +313,7 @@
     sphere2.position.set(s2.x, s2.y, 0);
     sphere2.rotation.z = s2.rotation * Math.PI / 180;
     scene.add(sphere2);
-    shapes.push({ mesh: sphere2, baseY: s2.y, speed: 1.0, amplitude: 0.25 });
+    shapes.push({ mesh: sphere2, baseX: s2.x, baseY: s2.y, speed: 1.0, amplitude: 0.25 });
   }
 
   const t = settings.torus || { x: 6, y: 1.5, rotation: 60, visible: true };
@@ -319,7 +323,7 @@
     torus.position.set(t.x, t.y, 0);
     torus.rotation.x = t.rotation * Math.PI / 180;
     scene.add(torus);
-    shapes.push({ mesh: torus, baseY: t.y, speed: 0.7, amplitude: 0.2, rotate: true });
+    shapes.push({ mesh: torus, baseX: t.x, baseY: t.y, speed: 0.7, amplitude: 0.2, rotate: true });
   }
 
   const c = settings.cone || { x: 4, y: -2.5, rotation: 17, visible: true };
@@ -329,7 +333,7 @@
     cone.position.set(c.x, c.y, 0);
     cone.rotation.z = c.rotation * Math.PI / 180;
     scene.add(cone);
-    shapes.push({ mesh: cone, baseY: c.y, speed: 0.9, amplitude: 0.2, rotate: true });
+    shapes.push({ mesh: cone, baseX: c.x, baseY: c.y, speed: 0.9, amplitude: 0.2, rotate: true });
   }
 
   function createSpring(x, y, rotation) {
@@ -360,13 +364,13 @@
   const sp1 = settings.spring1 || { x: -5.5, y: 3, rotation: -11, visible: true };
   if (sp1.visible) {
     const spring1 = createSpring(sp1.x, sp1.y, sp1.rotation);
-    shapes.push({ mesh: spring1, baseY: sp1.y, speed: 0.6, amplitude: 0.25, rotate: true });
+    shapes.push({ mesh: spring1, baseX: sp1.x, baseY: sp1.y, speed: 0.6, amplitude: 0.25, rotate: true });
   }
 
   const sp2 = settings.spring2 || { x: 6.5, y: -1, rotation: 11, visible: true };
   if (sp2.visible) {
     const spring2 = createSpring(sp2.x, sp2.y, sp2.rotation);
-    shapes.push({ mesh: spring2, baseY: sp2.y, speed: 0.75, amplitude: 0.2, rotate: true });
+    shapes.push({ mesh: spring2, baseX: sp2.x, baseY: sp2.y, speed: 0.75, amplitude: 0.2, rotate: true });
   }
 
   let time = 0;
@@ -390,10 +394,22 @@
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
     
-    const scale = window.innerWidth < 768 ? 0.85 : 1;
-    shapes.forEach(shape => {
+    const isMobile = window.innerWidth < 768;
+    const scale = isMobile ? 0.7 : 1;
+    const xMultiplier = isMobile ? 0.5 : 1;
+    
+    shapes.forEach((shape, i) => {
       shape.mesh.scale.setScalar(scale);
+      if (shape.baseX !== undefined) {
+        shape.mesh.position.x = shape.baseX * xMultiplier;
+      }
     });
+    
+    if (isMobile) {
+      camera.position.z = 12;
+    } else {
+      camera.position.z = 15;
+    }
   }
 
   window.addEventListener('resize', onResize);
