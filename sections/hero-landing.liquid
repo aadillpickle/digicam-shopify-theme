@@ -43,11 +43,11 @@
     pointer-events: none;
   }
 
-  /* CTA Button centered on page with arrow */
+  /* CTA Button positioned left of center, above text */
   .hero-cta-wrapper {
     position: absolute;
-    left: 50%;
-    top: 42%;
+    left: 28%;
+    top: 35%;
     transform: translateX(-50%);
     z-index: 10;
     display: flex;
@@ -56,13 +56,12 @@
   }
 
   .hero-cta-arrow {
-    width: 100px;
-    height: 80px;
+    width: 40px;
+    height: 50px;
     stroke: var(--color-text, #1a1a1a);
     stroke-width: 2;
     fill: none;
-    margin-bottom: -5px;
-    margin-right: 60px;
+    margin-top: 8px;
   }
 
   .hero-cta-wrapper .btn {
@@ -182,14 +181,8 @@
     {%- endif -%}
   </div>
 
-  <!-- CTA Button - Centered on page -->
+  <!-- CTA Button with arrow pointing up from text -->
   <div class="hero-cta-wrapper">
-    <!-- Hand-drawn Arrow curving from headline area to button -->
-    <svg class="hero-cta-arrow" viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
-      <path d="M 5 5 Q 25 8 45 25 Q 75 50 95 85" stroke-linecap="round" fill="none"/>
-      <path d="M 88 78 L 96 88 L 100 76" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    </svg>
-
     {%- liquid
       if section.settings.button_link != blank
         assign button_url = section.settings.button_link
@@ -202,6 +195,12 @@
     <a href="{{ button_url }}" class="btn btn-primary btn-with-check btn-large">
       {{ section.settings.button_text | default: 'Add to cart' }}
     </a>
+
+    <!-- Small hand-drawn arrow pointing up from text to button -->
+    <svg class="hero-cta-arrow" viewBox="0 0 50 60" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 25 55 Q 20 35 25 15" stroke-linecap="round" fill="none"/>
+      <path d="M 18 22 L 25 12 L 32 22" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
   </div>
 
   <!-- Hero Headline -->
