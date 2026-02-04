@@ -1,0 +1,128 @@
+<section class="page-section" data-section-id="{{ section.id }}">
+  <div class="container container-narrow">
+    <header class="page-header">
+      <h1>My Addresses</h1>
+    </header>
+
+    <div class="mb-xl">
+      <button
+        type="button"
+        class="btn btn-primary"
+        onclick="document.getElementById('add-address-form').style.display = document.getElementById('add-address-form').style.display === 'none' ? 'block' : 'none'"
+      >
+        Add New Address
+      </button>
+    </div>
+
+    <!-- Add Address Form -->
+    <div id="add-address-form" style="display: none;" class="product-specs mb-xl">
+      <h3 class="specs-title">New Address</h3>
+
+      {%- form 'customer_address', customer.new_address -%}
+        <div class="grid grid-2" style="gap: 1rem;">
+          <div class="form-group">
+            <label for="address-first-name">First Name</label>
+            <input type="text" name="address[first_name]" id="address-first-name" autocomplete="given-name">
+          </div>
+          <div class="form-group">
+            <label for="address-last-name">Last Name</label>
+            <input type="text" name="address[last_name]" id="address-last-name" autocomplete="family-name">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="address-company">Company (optional)</label>
+          <input type="text" name="address[company]" id="address-company" autocomplete="organization">
+        </div>
+
+        <div class="form-group">
+          <label for="address-address1">Address</label>
+          <input type="text" name="address[address1]" id="address-address1" autocomplete="address-line1">
+        </div>
+
+        <div class="form-group">
+          <label for="address-address2">Apartment, suite, etc. (optional)</label>
+          <input type="text" name="address[address2]" id="address-address2" autocomplete="address-line2">
+        </div>
+
+        <div class="grid grid-2" style="gap: 1rem;">
+          <div class="form-group">
+            <label for="address-city">City</label>
+            <input type="text" name="address[city]" id="address-city" autocomplete="address-level2">
+          </div>
+          <div class="form-group">
+            <label for="address-country">Country</label>
+            <select name="address[country]" id="address-country" autocomplete="country">
+              {{ all_country_option_tags }}
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-2" style="gap: 1rem;">
+          <div class="form-group">
+            <label for="address-province">State/Province</label>
+            <input type="text" name="address[province]" id="address-province" autocomplete="address-level1">
+          </div>
+          <div class="form-group">
+            <label for="address-zip">Postal/ZIP Code</label>
+            <input type="text" name="address[zip]" id="address-zip" autocomplete="postal-code">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="address-phone">Phone (optional)</label>
+          <input type="tel" name="address[phone]" id="address-phone" autocomplete="tel">
+        </div>
+
+        <div class="form-group">
+          <label>
+            <input type="checkbox" name="address[default]" value="1">
+            Set as default address
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Address</button>
+      {%- endform -%}
+    </div>
+
+    <!-- Existing Addresses -->
+    {%- if customer.addresses.size > 0 -%}
+      <div class="addresses-list">
+        {%- for address in customer.addresses -%}
+          <div class="product-specs mb-lg">
+            {%- if address == customer.default_address -%}
+              <span class="specs-title">Default Address</span>
+            {%- endif -%}
+
+            <p>{{ address | format_address }}</p>
+
+            <div class="mt-md" style="display: flex; gap: 1rem;">
+              <a href="{{ routes.account_addresses_url }}/{{ address.id }}" class="btn btn-secondary">Edit</a>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="if(confirm('Are you sure you want to delete this address?')) { Shopify.postLink('{{ routes.account_addresses_url }}/{{ address.id }}', {parameters: {_method: 'delete'}}); }"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <p style="color: var(--color-text-light);">You haven't saved any addresses yet.</p>
+    {%- endif -%}
+
+    <div class="mt-xl">
+      <a href="{{ routes.account_url }}" class="btn btn-secondary">Back to Account</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Customer Addresses",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}

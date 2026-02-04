@@ -1,0 +1,58 @@
+<section class="page-section" data-section-id="{{ section.id }}">
+  <div class="container">
+    <header class="page-header">
+      <h1>{{ collection.title }}</h1>
+      {%- if collection.description != blank -%}
+        <div class="collection-description">{{ collection.description }}</div>
+      {%- endif -%}
+    </header>
+
+    {%- paginate collection.products by 12 -%}
+      <div class="blog-grid">
+        {%- for product in collection.products -%}
+          <a href="{{ product.url }}" class="blog-card">
+            <div class="blog-card-image">
+              {%- if product.featured_image -%}
+                <img
+                  src="{{ product.featured_image | image_url: width: 800 }}"
+                  alt="{{ product.featured_image.alt | default: product.title }}"
+                  width="400"
+                  height="400"
+                  loading="lazy"
+                >
+              {%- else -%}
+                <img
+                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect fill='%23f5f0eb' width='400' height='400'/%3E%3Ctext x='50%25' y='50%25' fill='%23999' text-anchor='middle' dy='.3em' font-family='sans-serif'%3EProduct%3C/text%3E%3C/svg%3E"
+                  alt="Product placeholder"
+                  width="400"
+                  height="400"
+                  loading="lazy"
+                >
+              {%- endif -%}
+            </div>
+            <div class="blog-card-content">
+              <p class="blog-card-date text-mono">{{ product.price | money }}</p>
+              <h3 class="blog-card-title">{{ product.title }}</h3>
+            </div>
+          </a>
+        {%- else -%}
+          <p class="text-center" style="grid-column: 1 / -1;">No products in this collection yet.</p>
+        {%- endfor -%}
+      </div>
+
+      {%- if paginate.pages > 1 -%}
+        <div class="pagination mt-xl text-center">
+          {{ paginate | default_pagination }}
+        </div>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection Main",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}

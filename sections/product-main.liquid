@@ -1,0 +1,271 @@
+{%- comment -%}
+  Product Main Section
+  Automatically renders all product info from the linked product.
+  On product pages, uses the current product. Can also be used on other pages by selecting a product in settings.
+{%- endcomment -%}
+
+{%- liquid
+  if section.settings.product != blank
+    assign current_product = section.settings.product
+  else
+    assign current_product = product
+  endif
+
+  assign current_variant = current_product.selected_or_first_available_variant
+-%}
+
+<section class="product-section" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="product-grid">
+      <!-- Product Gallery -->
+      <div class="product-gallery">
+        <div class="product-main-image" data-product-gallery>
+          {%- if current_product.featured_image != blank -%}
+            <img
+              id="product-main-img"
+              src="{{ current_product.featured_image | image_url: width: 1200 }}"
+              alt="{{ current_product.featured_image.alt | default: current_product.title }}"
+              width="600"
+              height="600"
+              loading="eager"
+            >
+          {%- else -%}
+            <img
+              id="product-main-img"
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Crect fill='%23f5f0eb' width='600' height='600'/%3E%3Ctext x='50%25' y='50%25' fill='%23999' text-anchor='middle' dy='.3em' font-family='sans-serif'%3EProduct Image%3C/text%3E%3C/svg%3E"
+              alt="Placeholder: Mini digital camera product shot, palm-sized orange camera on clean white background, showing front view with lens and flash"
+              width="600"
+              height="600"
+              loading="eager"
+            >
+          {%- endif -%}
+        </div>
+
+        {%- if current_product.images.size > 1 -%}
+          <div class="product-thumbnails">
+            {%- for image in current_product.images limit: 6 -%}
+              <button
+                class="product-thumbnail{% if forloop.first %} active{% endif %}"
+                data-full-src="{{ image | image_url: width: 1200 }}"
+                data-index="{{ forloop.index0 }}"
+                type="button"
+                aria-label="View image {{ forloop.index }}"
+              >
+                <img
+                  src="{{ image | image_url: width: 160 }}"
+                  alt="{{ image.alt | default: current_product.title }}"
+                  width="80"
+                  height="80"
+                  loading="lazy"
+                >
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- Product Info -->
+      <div class="product-info">
+        {%- if current_product.vendor != blank -%}
+          <p class="product-vendor text-mono" style="color: var(--color-text-light); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">
+            {{ current_product.vendor }}
+          </p>
+        {%- endif -%}
+
+        <h1 class="product-title">{{ current_product.title }}</h1>
+
+        <div class="product-price" data-product-price>
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            <span class="product-price__sale">{{ current_variant.price | money }}</span>
+            <span class="product-price__compare" style="text-decoration: line-through; color: var(--color-text-light); margin-left: 0.5rem; font-size: 1rem;">
+              {{ current_variant.compare_at_price | money }}
+            </span>
+            <span class="product-price__badge" style="display: inline-block; background: var(--color-accent); color: white; padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); font-size: 0.75rem; margin-left: 0.5rem;">
+              Sale
+            </span>
+          {%- else -%}
+            {{ current_variant.price | money }}
+          {%- endif -%}
+        </div>
+
+        <div class="product-description">
+          {%- if current_product.description != blank -%}
+            {{ current_product.description }}
+          {%- else -%}
+            <p><strong>Your pocket-sized time machine.</strong></p>
+
+            <p>Turn every moment into a celebration of fun and nostalgia. This palm-sized wonder clips right onto your bag—part charm, part camera, all magic. Snap street scenes. Record party highlights. Capture quality moments. All without missing a beat.</p>
+
+            <p>The built-in flash means low-light? No problem. The 180° flip screen means selfies? Always sharp. Multiple filters mean boring photos? Never heard of them.</p>
+
+            <p>At just 30g, you'll forget it's there—until you need it. Then you'll wonder how you ever lived without it.</p>
+          {%- endif -%}
+        </div>
+
+        <!-- Features -->
+        <div class="product-features">
+          <div class="product-feature">
+            <span class="feature-title">Built-in Flash</span>
+            <span class="feature-description">Great photos in any light. No more dark, grainy shots.</span>
+          </div>
+          <div class="product-feature">
+            <span class="feature-title">Palm-Sized</span>
+            <span class="feature-description">58 x 24.5 x 20mm. Fits anywhere. Goes everywhere.</span>
+          </div>
+          <div class="product-feature">
+            <span class="feature-title">180° Flip Screen</span>
+            <span class="feature-description">Selfies that actually look good. Frame yourself perfectly.</span>
+          </div>
+          <div class="product-feature">
+            <span class="feature-title">Multiple Filters</span>
+            <span class="feature-description">Add creative effects instantly. No editing required.</span>
+          </div>
+          <div class="product-feature">
+            <span class="feature-title">Keychain Ready</span>
+            <span class="feature-description">Clip it to your bag. Always ready for the moment.</span>
+          </div>
+        </div>
+
+        <!-- Specs -->
+        <div class="product-specs">
+          <h3 class="specs-title">Technical Specs</h3>
+          <div class="specs-grid">
+            <div class="spec-item">
+              <span class="spec-label">Sensor</span>
+              <span class="spec-value">1/4" CMOS</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Lens</span>
+              <span class="spec-value">35mm F2.4</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Resolution</span>
+              <span class="spec-value">1440 x 1080</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Megapixels</span>
+              <span class="spec-value">1.6MP</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Image Format</span>
+              <span class="spec-value">JPEG</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Video Format</span>
+              <span class="spec-value">AVI @ 30fps</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Storage</span>
+              <span class="spec-value">MicroSD (1-128GB)</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Charging</span>
+              <span class="spec-value">USB-C</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Battery</span>
+              <span class="spec-value">200mAh</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Weight</span>
+              <span class="spec-value">30g</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Material</span>
+              <span class="spec-value">ABS</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Age</span>
+              <span class="spec-value">15+</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add to Cart Form -->
+        {%- if current_product != blank -%}
+          {%- form 'product', current_product, class: 'product-form', data-product-form: '' -%}
+            <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+
+            {%- unless current_product.has_only_default_variant -%}
+              <div class="product-variants">
+                {%- for option in current_product.options_with_values -%}
+                  <div class="variant-selector">
+                    <label class="variant-label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+                      {{ option.name }}
+                    </label>
+                    <select
+                      id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                      class="variant-select"
+                      name="options[{{ option.name | escape }}]"
+                      data-option-index="{{ forloop.index0 }}"
+                    >
+                      {%- for value in option.values -%}
+                        <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>
+                          {{ value }}
+                        </option>
+                      {%- endfor -%}
+                    </select>
+                  </div>
+                {%- endfor -%}
+              </div>
+
+              <script type="application/json" data-product-variants>
+                {{ current_product.variants | json }}
+              </script>
+            {%- endunless -%}
+
+            <div class="quantity-selector">
+              <span class="quantity-label">Quantity</span>
+              <div class="quantity-input">
+                <button type="button" class="quantity-btn" data-action="minus" aria-label="Decrease quantity">−</button>
+                <input
+                  type="number"
+                  name="quantity"
+                  class="quantity-value"
+                  value="1"
+                  min="1"
+                  max="{{ current_variant.inventory_quantity | default: 99 }}"
+                  aria-label="Quantity"
+                >
+                <button type="button" class="quantity-btn" data-action="plus" aria-label="Increase quantity">+</button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-primary add-to-cart-btn btn-with-check btn-large"
+              {% unless current_variant.available %}disabled{% endunless %}
+            >
+              {%- if current_variant.available -%}
+                Add to cart — {{ current_variant.price | money }}
+              {%- else -%}
+                Sold out
+              {%- endif -%}
+            </button>
+          {%- endform -%}
+        {%- else -%}
+          <p style="color: var(--color-text-light);">No product selected. Please select a product in the theme customizer.</p>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Main",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Main"
+    }
+  ]
+}
+{% endschema %}

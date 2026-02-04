@@ -1,0 +1,51 @@
+<footer class="footer" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="footer-content">
+      <a href="/" class="footer-logo">{{ shop.name }}</a>
+
+      <nav class="footer-links">
+        {%- for link in section.settings.menu.links -%}
+          <a href="{{ link.url }}" class="footer-link">{{ link.title }}</a>
+        {%- endfor -%}
+
+        {%- if section.settings.show_terms -%}
+          <a href="/pages/terms" class="footer-link">Terms</a>
+        {%- endif -%}
+
+        {%- if section.settings.show_privacy -%}
+          <a href="/pages/privacy" class="footer-link">Privacy</a>
+        {%- endif -%}
+      </nav>
+
+      <div class="footer-copyright">
+        <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "footer"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_terms",
+      "label": "Show terms link",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_privacy",
+      "label": "Show privacy link",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

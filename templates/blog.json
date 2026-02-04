@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "blog-main",
+      "settings": {
+        "description": "Stories, tips, and inspiration for capturing life's moments."
+      }
+    }
+  },
+  "order": ["main"]
+}

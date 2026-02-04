@@ -1,0 +1,108 @@
+{%- style -%}
+  .auth-form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 1rem;
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    background: white;
+  }
+
+  .form-group input:focus {
+    outline: none;
+    border-color: var(--color-text);
+  }
+
+  .form-errors {
+    background: #fee;
+    border: 1px solid #e53e3e;
+    color: #e53e3e;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+  }
+
+  .form-link {
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+  }
+{%- endstyle -%}
+
+<section class="page-section" data-section-id="{{ section.id }}">
+  <div class="container container-narrow">
+    <header class="page-header">
+      <h1>Login</h1>
+    </header>
+
+    <div class="auth-form">
+      {%- form 'customer_login' -%}
+        {%- if form.errors -%}
+          <div class="form-errors">
+            {{ form.errors | default_errors }}
+          </div>
+        {%- endif -%}
+
+        <div class="form-group">
+          <label for="customer-email">Email</label>
+          <input
+            type="email"
+            name="customer[email]"
+            id="customer-email"
+            autocomplete="email"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="customer-password">Password</label>
+          <input
+            type="password"
+            name="customer[password]"
+            id="customer-password"
+            autocomplete="current-password"
+            required
+          >
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%;">
+          Sign In
+        </button>
+
+        <p class="form-link mt-md text-center">
+          <a href="{{ routes.account_recover_url }}">Forgot your password?</a>
+        </p>
+
+        <p class="form-link mt-lg text-center">
+          Don't have an account?
+          <a href="{{ routes.account_register_url }}">Create one</a>
+        </p>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Customer Login",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}

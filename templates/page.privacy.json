@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "privacy-content",
+      "settings": {
+        "title": "Privacy Policy"
+      }
+    }
+  },
+  "order": ["main"]
+}

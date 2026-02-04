@@ -1,0 +1,47 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "close": "Close"
+    },
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    }
+  },
+  "accessibility": {
+    "skip_to_text": "Skip to content"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "added_to_cart": "Added!",
+      "quantity": "Quantity",
+      "price": "Price",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Your Cart",
+      "empty": "Your cart is empty",
+      "continue_shopping": "Continue Shopping",
+      "remove": "Remove",
+      "subtotal": "Subtotal",
+      "checkout": "Checkout",
+      "note": "Shipping and taxes calculated at checkout."
+    }
+  },
+  "blogs": {
+    "article": {
+      "comments": "Comments",
+      "leave_comment": "Leave a comment",
+      "post_comment": "Post Comment",
+      "back_to_blog": "Back to {{ title }}"
+    }
+  },
+  "date_formats": {
+    "month_day_year": "%B %d, %Y"
+  }
+}

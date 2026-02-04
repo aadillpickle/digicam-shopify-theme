@@ -1,0 +1,39 @@
+{%- comment -%}
+  Renders a placeholder image with alt text describing the needed image.
+  Use this when no product/collection image is available.
+
+  Usage:
+  {% render 'image-placeholder', type: 'product', width: 600, height: 600 %}
+{%- endcomment -%}
+
+{%- liquid
+  assign placeholder_width = width | default: 400
+  assign placeholder_height = height | default: 400
+  assign placeholder_type = type | default: 'product'
+
+  case placeholder_type
+    when 'product'
+      assign placeholder_text = 'Product Image'
+      assign alt_prompt = 'Placeholder: Mini digital camera product shot, palm-sized camera on clean background'
+    when 'collection'
+      assign placeholder_text = 'Collection'
+      assign alt_prompt = 'Placeholder: Collection of mini cameras arranged aesthetically'
+    when 'blog'
+      assign placeholder_text = 'Blog Image'
+      assign alt_prompt = 'Placeholder: Lifestyle photography featuring mini camera in use'
+    when 'hero'
+      assign placeholder_text = 'Hero Image'
+      assign alt_prompt = 'Placeholder: Mini digital camera hero shot, tilted angle with floating 3D spheres, warm cream background with gradient'
+    else
+      assign placeholder_text = 'Image'
+      assign alt_prompt = 'Placeholder image'
+  endcase
+-%}
+
+<img
+  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 {{ placeholder_width }} {{ placeholder_height }}'%3E%3Crect fill='%23f5f0eb' width='{{ placeholder_width }}' height='{{ placeholder_height }}'/%3E%3Ctext x='50%25' y='50%25' fill='%23999' text-anchor='middle' dy='.3em' font-family='sans-serif' font-size='14'%3E{{ placeholder_text }}%3C/text%3E%3C/svg%3E"
+  alt="{{ alt_prompt }}"
+  width="{{ placeholder_width }}"
+  height="{{ placeholder_height }}"
+  loading="lazy"
+>

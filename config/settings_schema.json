@@ -1,0 +1,123 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Mini DigiCam",
+    "theme_version": "1.0.0",
+    "theme_author": "Mini DigiCam",
+    "theme_documentation_url": "https://minidigi.cam",
+    "theme_support_url": "https://minidigi.cam/support"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Primary colors"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background",
+        "default": "#FDF8F3"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text",
+        "default": "#1A1A1A"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent",
+        "default": "#FF6B35"
+      },
+      {
+        "type": "color",
+        "id": "color_button",
+        "label": "Button background",
+        "default": "#1A1A1A"
+      },
+      {
+        "type": "color",
+        "id": "color_button_text",
+        "label": "Button text",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "header",
+        "content": "Gradient colors"
+      },
+      {
+        "type": "color",
+        "id": "gradient_lavender",
+        "label": "Gradient lavender",
+        "default": "#E8E0F0"
+      },
+      {
+        "type": "color",
+        "id": "gradient_peach",
+        "label": "Gradient peach",
+        "default": "#FFDAB3"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Heading font",
+        "default": "serif"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "font_body_size",
+        "label": "Body font size",
+        "min": 14,
+        "max": 20,
+        "step": 1,
+        "default": 16,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram link"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok",
+        "label": "TikTok link"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter",
+        "label": "Twitter/X link"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_notes_enable",
+        "label": "Enable cart notes",
+        "default": true
+      }
+    ]
+  }
+]

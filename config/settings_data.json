@@ -1,0 +1,35 @@
+{
+  "current": {
+    "color_background": "#FDF8F3",
+    "color_text": "#1A1A1A",
+    "color_accent": "#FF6B35",
+    "color_button": "#1A1A1A",
+    "color_button_text": "#FFFFFF",
+    "gradient_lavender": "#E8E0F0",
+    "gradient_peach": "#FFDAB3",
+    "font_body_size": 16,
+    "cart_notes_enable": true,
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {}
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {}
+      }
+    },
+    "content_for_index": []
+  },
+  "presets": {
+    "Default": {
+      "color_background": "#FDF8F3",
+      "color_text": "#1A1A1A",
+      "color_accent": "#FF6B35",
+      "color_button": "#1A1A1A",
+      "color_button_text": "#FFFFFF",
+      "gradient_lavender": "#E8E0F0",
+      "gradient_peach": "#FFDAB3"
+    }
+  }
+}

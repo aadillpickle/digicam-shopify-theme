@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "terms-content",
+      "settings": {
+        "title": "Terms of Service"
+      }
+    }
+  },
+  "order": ["main"]
+}

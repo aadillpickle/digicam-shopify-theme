@@ -1,0 +1,281 @@
+{%- style -%}
+  .hero-landing-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 3rem;
+    overflow: hidden;
+    background: linear-gradient(
+      135deg,
+      {{ section.settings.background_color }} 0%,
+      {{ section.settings.background_color }} 50%,
+      {{ section.settings.gradient_lavender }} 100%
+    );
+  }
+
+  .hero-landing-section::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 50%;
+    height: 40%;
+    background: linear-gradient(
+      to top,
+      {{ section.settings.gradient_peach }} 0%,
+      transparent 100%
+    );
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .hero-landing-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      to left,
+      {{ section.settings.gradient_lavender }} 0%,
+      transparent 60%
+    );
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .hero-product-placeholder {
+    width: 100%;
+    aspect-ratio: 1.2;
+    background: linear-gradient(135deg, #f0ebe5 0%, #e8e3dd 100%);
+    border: 3px dashed #ccc;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .placeholder-text {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+    color: #888;
+    margin: 0 0 0.5rem;
+  }
+
+  .placeholder-hint {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #aaa;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .hero-landing-section {
+      padding: 1.5rem;
+      padding-top: 80px;
+      min-height: 100svh;
+    }
+
+    .hero-product-placeholder {
+      aspect-ratio: 1;
+    }
+  }
+{%- endstyle -%}
+
+<section class="hero-landing-section" data-section-id="{{ section.id }}">
+  <!-- Floating 3D Shapes -->
+  <div class="floating-sphere sphere-1"></div>
+  <div class="floating-sphere sphere-2"></div>
+
+  <!-- Curly Springs -->
+  <div class="floating-spring spring-1">
+    <svg viewBox="0 0 40 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 5 C35 5, 35 15, 20 15 C5 15, 5 25, 20 25 C35 25, 35 35, 20 35 C5 35, 5 45, 20 45 C35 45, 35 55, 20 55 C5 55, 5 65, 20 65 C35 65, 35 75, 20 75" stroke="white" stroke-width="4" stroke-linecap="round" fill="none"/>
+    </svg>
+  </div>
+  <div class="floating-spring spring-2">
+    <svg viewBox="0 0 40 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 5 C35 5, 35 15, 20 15 C5 15, 5 25, 20 25 C35 25, 35 35, 20 35 C5 35, 5 45, 20 45 C35 45, 35 55, 20 55 C5 55, 5 65, 20 65 C35 65, 35 75, 20 75" stroke="white" stroke-width="4" stroke-linecap="round" fill="none"/>
+    </svg>
+  </div>
+
+  <!-- 3D Torus/Donut -->
+  <div class="floating-torus torus-1"></div>
+
+  <!-- 3D Cone -->
+  <div class="floating-cone cone-1"></div>
+
+  <!-- Circular Text Element with Lens -->
+  <div class="circular-text-container">
+    <svg class="circular-text" viewBox="0 0 150 150">
+      <defs>
+        <path id="circlePath" d="M 75, 75 m -60, 0 a 60,60 0 1,1 120,0 a 60,60 0 1,1 -120,0"/>
+      </defs>
+      <text>
+        <textPath href="#circlePath">
+          {{ section.settings.circular_text | default: 'point and shoot  point and shoot  ' }}
+        </textPath>
+      </text>
+    </svg>
+    <div class="circular-lens">
+      {%- if section.settings.lens_image != blank -%}
+        <img
+          src="{{ section.settings.lens_image | image_url: width: 120 }}"
+          alt="{{ section.settings.lens_image.alt | default: 'Camera lens' }}"
+          width="60"
+          height="60"
+          loading="eager"
+        >
+      {%- else -%}
+        <img
+          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%231a1a1a'/%3E%3Ccircle cx='50' cy='50' r='35' fill='%23333'/%3E%3Ccircle cx='50' cy='50' r='20' fill='%23555'/%3E%3Ccircle cx='50' cy='50' r='10' fill='%23222'/%3E%3Ccircle cx='40' cy='40' r='5' fill='%23667799' opacity='0.5'/%3E%3C/svg%3E"
+          alt="Placeholder: Close-up macro shot of a Lomography camera lens, dark black glass with concentric rings, blue glass reflection highlights, chrome/silver ring around the lens edge, text LOMOGRAPHY 27MM F1.8 engraved on ring, product photography style"
+          width="60"
+          height="60"
+          loading="eager"
+        >
+      {%- endif -%}
+    </div>
+  </div>
+
+  <!-- Product Image -->
+  <div class="hero-product">
+    {%- if section.settings.product_image != blank -%}
+      <img
+        src="{{ section.settings.product_image | image_url: width: 1200 }}"
+        alt="{{ section.settings.product_image.alt | default: 'Mini DigiCam' }}"
+        width="600"
+        height="600"
+        loading="eager"
+      >
+    {%- else -%}
+      <div class="hero-product-placeholder">
+        <p class="placeholder-text">Upload your camera image here</p>
+        <p class="placeholder-hint">Use a transparent PNG, rotated ~15° clockwise</p>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <!-- CTA Button with Hand-drawn Arrow -->
+  <div class="hero-cta-container">
+    <div class="hero-cta-arrow">
+      <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 45 10 Q 30 5 20 25 Q 15 40 25 50" stroke-linecap="round"/>
+        <path d="M 20 45 L 25 50 L 30 42" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    {%- assign featured_product = section.settings.featured_product -%}
+    {%- if featured_product != blank -%}
+      <a href="{{ featured_product.url }}" class="btn btn-primary btn-with-check">
+        {{ section.settings.button_text | default: 'Add to cart' }}
+      </a>
+    {%- else -%}
+      <a href="/collections/all" class="btn btn-primary btn-with-check">
+        {{ section.settings.button_text | default: 'Add to cart' }}
+      </a>
+    {%- endif -%}
+  </div>
+
+  <!-- Hero Headline -->
+  <div class="hero-content">
+    <h1 class="hero-headline">
+      <span class="hero-headline-italic">{{ section.settings.headline_line1 | default: 'Mini' }}</span>
+      <span>{{ section.settings.headline_line2 | default: 'DigiCam' }}</span>
+    </h1>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Landing",
+  "tag": "section",
+  "class": "hero-landing-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Headlines"
+    },
+    {
+      "type": "text",
+      "id": "headline_line1",
+      "label": "Headline line 1 (italic)",
+      "default": "Mini"
+    },
+    {
+      "type": "text",
+      "id": "headline_line2",
+      "label": "Headline line 2",
+      "default": "DigiCam"
+    },
+    {
+      "type": "header",
+      "content": "Product"
+    },
+    {
+      "type": "product",
+      "id": "featured_product",
+      "label": "Featured product"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product image"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Add to cart"
+    },
+    {
+      "type": "header",
+      "content": "Circular element"
+    },
+    {
+      "type": "text",
+      "id": "circular_text",
+      "label": "Circular text",
+      "default": "point and shoot  point and shoot  "
+    },
+    {
+      "type": "image_picker",
+      "id": "lens_image",
+      "label": "Lens image"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FDF8F3"
+    },
+    {
+      "type": "color",
+      "id": "gradient_lavender",
+      "label": "Gradient lavender",
+      "default": "#E8E0F0"
+    },
+    {
+      "type": "color",
+      "id": "gradient_peach",
+      "label": "Gradient peach",
+      "default": "#FFDAB3"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Landing"
+    }
+  ]
+}
+{% endschema %}

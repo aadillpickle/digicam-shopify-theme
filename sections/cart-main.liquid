@@ -1,0 +1,95 @@
+<section class="cart-section" data-section-id="{{ section.id }}">
+  <div class="container container-narrow">
+    {%- if cart.item_count == 0 -%}
+      <div class="cart-empty">
+        <h2>Your cart is empty</h2>
+        <p>Looks like you haven't added anything yet.</p>
+        <a href="/" class="btn btn-primary mt-lg">Continue Shopping</a>
+      </div>
+    {%- else -%}
+      <h1 class="text-center mb-xl">Your Cart</h1>
+
+      <div class="cart-items">
+        {%- for item in cart.items -%}
+          <div class="cart-item" data-key="{{ item.key }}">
+            <div class="cart-item-image">
+              {%- if item.image -%}
+                <img
+                  src="{{ item.image | image_url: width: 200 }}"
+                  alt="{{ item.image.alt | default: item.product.title }}"
+                  width="100"
+                  height="100"
+                  loading="lazy"
+                >
+              {%- endif -%}
+            </div>
+
+            <div class="cart-item-details">
+              <h3>{{ item.product.title }}</h3>
+              {%- unless item.product.has_only_default_variant -%}
+                <p class="cart-item-variant text-mono">{{ item.variant.title }}</p>
+              {%- endunless -%}
+              <p class="cart-item-price">{{ item.price | money }} x {{ item.quantity }}</p>
+              <button
+                type="button"
+                class="cart-item-remove"
+                onclick="removeCartItem('{{ item.key }}')"
+              >
+                Remove
+              </button>
+            </div>
+
+            <div class="cart-item-actions">
+              <div class="quantity-input">
+                <button
+                  type="button"
+                  class="quantity-btn"
+                  onclick="updateCartQuantity('{{ item.key }}', {{ item.quantity | minus: 1 }})"
+                >−</button>
+                <input
+                  type="number"
+                  class="quantity-value"
+                  value="{{ item.quantity }}"
+                  min="0"
+                  onchange="updateCartQuantity('{{ item.key }}', this.value)"
+                >
+                <button
+                  type="button"
+                  class="quantity-btn"
+                  onclick="updateCartQuantity('{{ item.key }}', {{ item.quantity | plus: 1 }})"
+                >+</button>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="cart-summary">
+        <div class="cart-subtotal">
+          <span>Subtotal</span>
+          <span class="cart-subtotal-value">{{ cart.total_price | money }}</span>
+        </div>
+
+        <p class="cart-note">Shipping and taxes calculated at checkout.</p>
+
+        <form action="/checkout" method="post">
+          <button type="submit" class="btn btn-primary checkout-btn">
+            Checkout
+          </button>
+        </form>
+
+        <a href="/" class="btn btn-secondary mt-md" style="width: 100%;">
+          Continue Shopping
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart Main",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}

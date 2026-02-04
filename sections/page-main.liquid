@@ -1,0 +1,19 @@
+<section class="page-section" data-section-id="{{ section.id }}">
+  <div class="container">
+    <header class="page-header">
+      <h1>{{ page.title }}</h1>
+    </header>
+
+    <div class="page-content">
+      {{ page.content }}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Page Main",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}

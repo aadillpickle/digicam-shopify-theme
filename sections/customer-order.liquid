@@ -1,0 +1,113 @@
+<section class="page-section" data-section-id="{{ section.id }}">
+  <div class="container container-narrow">
+    <header class="page-header">
+      <h1>Order {{ order.name }}</h1>
+      <p class="text-mono" style="color: var(--color-text-light);">
+        Placed on {{ order.created_at | date: '%B %d, %Y at %I:%M %p' }}
+      </p>
+    </header>
+
+    {%- if order.cancelled -%}
+      <div class="form-errors mb-xl">
+        Order cancelled on {{ order.cancelled_at | date: '%B %d, %Y' }}
+        {%- if order.cancel_reason -%}
+          <br>Reason: {{ order.cancel_reason_label }}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="cart-items mb-xl">
+      {%- for line_item in order.line_items -%}
+        <div class="cart-item">
+          <div class="cart-item-image">
+            {%- if line_item.image -%}
+              <img
+                src="{{ line_item.image | image_url: width: 200 }}"
+                alt="{{ line_item.image.alt | default: line_item.title }}"
+                width="100"
+                height="100"
+                loading="lazy"
+              >
+            {%- endif -%}
+          </div>
+
+          <div class="cart-item-details">
+            <h3>{{ line_item.title }}</h3>
+            {%- if line_item.sku != blank -%}
+              <p class="text-mono" style="color: var(--color-text-light); font-size: 0.75rem;">
+                SKU: {{ line_item.sku }}
+              </p>
+            {%- endif -%}
+            <p class="text-mono">
+              {{ line_item.price | money }} x {{ line_item.quantity }}
+            </p>
+          </div>
+
+          <div class="cart-item-total">
+            <span class="text-mono">{{ line_item.final_line_price | money }}</span>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div class="product-specs mb-xl">
+      <h3 class="specs-title">Order Summary</h3>
+      <div class="specs-grid">
+        <div class="spec-item" style="grid-column: span 2;">
+          <span class="spec-label">Subtotal</span>
+          <span class="spec-value">{{ order.line_items_subtotal_price | money }}</span>
+        </div>
+
+        {%- for discount in order.discounts -%}
+          <div class="spec-item" style="grid-column: span 2;">
+            <span class="spec-label">Discount ({{ discount.code }})</span>
+            <span class="spec-value">-{{ discount.savings | money }}</span>
+          </div>
+        {%- endfor -%}
+
+        {%- for shipping_method in order.shipping_methods -%}
+          <div class="spec-item" style="grid-column: span 2;">
+            <span class="spec-label">Shipping ({{ shipping_method.title }})</span>
+            <span class="spec-value">{{ shipping_method.price | money }}</span>
+          </div>
+        {%- endfor -%}
+
+        {%- for tax_line in order.tax_lines -%}
+          <div class="spec-item" style="grid-column: span 2;">
+            <span class="spec-label">Tax ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)</span>
+            <span class="spec-value">{{ tax_line.price | money }}</span>
+          </div>
+        {%- endfor -%}
+
+        <div class="spec-item" style="grid-column: span 2; border-top: 1px solid var(--color-border); padding-top: 1rem; margin-top: 0.5rem;">
+          <span class="spec-label" style="font-weight: 500;">Total</span>
+          <span class="spec-value" style="font-size: 1.25rem;">{{ order.total_price | money }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-2" style="gap: 2rem;">
+      <div class="product-specs">
+        <h3 class="specs-title">Shipping Address</h3>
+        <p>{{ order.shipping_address | format_address }}</p>
+      </div>
+
+      <div class="product-specs">
+        <h3 class="specs-title">Billing Address</h3>
+        <p>{{ order.billing_address | format_address }}</p>
+      </div>
+    </div>
+
+    <div class="mt-xl">
+      <a href="{{ routes.account_url }}" class="btn btn-secondary">Back to Account</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Customer Order",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}

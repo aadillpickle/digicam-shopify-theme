@@ -1,0 +1,89 @@
+<section class="page-section" data-section-id="{{ section.id }}">
+  <div class="container container-narrow">
+    <header class="page-header">
+      <h1>Search</h1>
+    </header>
+
+    <form action="{{ routes.search_url }}" method="get" class="search-form mb-xl">
+      <div class="quantity-input" style="max-width: 100%;">
+        <input
+          type="search"
+          name="q"
+          value="{{ search.terms | escape }}"
+          placeholder="Search products, articles..."
+          class="quantity-value"
+          style="width: 100%; padding: 1rem; text-align: left;"
+        >
+        <button type="submit" class="quantity-btn" style="padding: 0 1.5rem;">
+          Go
+        </button>
+      </div>
+    </form>
+
+    {%- if search.performed -%}
+      {%- if search.results_count == 0 -%}
+        <div class="text-center">
+          <p style="font-size: 1.25rem; margin-bottom: 1rem;">
+            No results found for "{{ search.terms }}"
+          </p>
+          <p class="text-mono" style="color: var(--color-text-light);">
+            Try a different search term
+          </p>
+        </div>
+      {%- else -%}
+        <p class="text-mono mb-lg" style="color: var(--color-text-light);">
+          {{ search.results_count }} result{% if search.results_count > 1 %}s{% endif %} for "{{ search.terms }}"
+        </p>
+
+        <div class="blog-grid">
+          {%- for item in search.results -%}
+            <a href="{{ item.url }}" class="blog-card">
+              <div class="blog-card-image">
+                {%- if item.featured_image -%}
+                  <img
+                    src="{{ item.featured_image | image_url: width: 800 }}"
+                    alt="{{ item.featured_image.alt | default: item.title }}"
+                    width="400"
+                    height="300"
+                    loading="lazy"
+                  >
+                {%- else -%}
+                  <img
+                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23f5f0eb' width='400' height='300'/%3E%3Ctext x='50%25' y='50%25' fill='%23999' text-anchor='middle' dy='.3em' font-family='sans-serif'%3E{{ item.object_type | capitalize }}%3C/text%3E%3C/svg%3E"
+                    alt="Search result"
+                    width="400"
+                    height="300"
+                    loading="lazy"
+                  >
+                {%- endif -%}
+              </div>
+              <div class="blog-card-content">
+                <p class="blog-card-date text-mono">{{ item.object_type | capitalize }}</p>
+                <h3 class="blog-card-title">{{ item.title }}</h3>
+                {%- if item.price -%}
+                  <p class="text-mono">{{ item.price | money }}</p>
+                {%- endif -%}
+              </div>
+            </a>
+          {%- endfor -%}
+        </div>
+
+        {%- if search.results.size < search.results_count -%}
+          <div class="text-center mt-xl">
+            <p class="text-mono" style="color: var(--color-text-light);">
+              Showing {{ search.results.size }} of {{ search.results_count }} results
+            </p>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Search Results",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}

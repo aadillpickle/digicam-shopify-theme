@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-landing",
+      "settings": {
+        "headline_line1": "Mini",
+        "headline_line2": "DigiCam",
+        "button_text": "Add to cart",
+        "circular_text": "point and shoot  point and shoot  ",
+        "background_color": "#FDF8F3",
+        "gradient_lavender": "#E8E0F0",
+        "gradient_peach": "#FFDAB3"
+      }
+    }
+  },
+  "order": ["hero"]
+}

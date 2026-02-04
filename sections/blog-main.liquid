@@ -1,0 +1,65 @@
+<section class="blog-section" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="blog-header">
+      <h1>{{ blog.title | default: 'Blog' }}</h1>
+      {%- if section.settings.description != blank -%}
+        <p>{{ section.settings.description }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="blog-grid">
+      {%- paginate blog.articles by 9 -%}
+        {%- for article in blog.articles -%}
+          <a href="{{ article.url }}" class="blog-card">
+            <div class="blog-card-image">
+              {%- if article.image -%}
+                <img
+                  src="{{ article.image | image_url: width: 800 }}"
+                  alt="{{ article.image.alt | default: article.title }}"
+                  width="400"
+                  height="300"
+                  loading="lazy"
+                >
+              {%- else -%}
+                <img
+                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23f5f0eb' width='400' height='300'/%3E%3Ctext x='50%25' y='50%25' fill='%23999' text-anchor='middle' dy='.3em' font-family='sans-serif' font-size='14'%3EBlog Image%3C/text%3E%3C/svg%3E"
+                  alt="Placeholder: Blog post featured image"
+                  width="400"
+                  height="300"
+                  loading="lazy"
+                >
+              {%- endif -%}
+            </div>
+            <div class="blog-card-content">
+              <p class="blog-card-date">{{ article.published_at | date: '%B %d, %Y' }}</p>
+              <h3 class="blog-card-title">{{ article.title }}</h3>
+              <p class="blog-card-excerpt">{{ article.excerpt_or_content | strip_html | truncate: 120 }}</p>
+            </div>
+          </a>
+        {%- else -%}
+          <p class="text-center">No articles yet. Check back soon!</p>
+        {%- endfor -%}
+
+        {%- if paginate.pages > 1 -%}
+          <div class="pagination mt-xl" style="grid-column: 1 / -1; text-align: center;">
+            {{ paginate | default_pagination }}
+          </div>
+        {%- endif -%}
+      {%- endpaginate -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blog Main",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description"
+    }
+  ]
+}
+{% endschema %}
