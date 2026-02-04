@@ -1,8 +1,6 @@
 <footer class="footer" data-section-id="{{ section.id }}">
   <div class="container">
     <div class="footer-content">
-      <a href="/" class="footer-logo">{{ shop.name }}</a>
-
       <nav class="footer-links">
         {%- for link in section.settings.menu.links -%}
           <a href="{{ link.url }}" class="footer-link">{{ link.title }}</a>
