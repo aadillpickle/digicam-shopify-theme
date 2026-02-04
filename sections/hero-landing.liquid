@@ -78,32 +78,27 @@
     z-index: 1;
   }
 
-  .circular-text-container .circular-text text {
-    font-size: {{ section.settings.circular_text_size }}px;
-  }
-
   @media (max-width: 768px) {
     .hero-landing-section {
       padding: 1.5rem;
-      padding-top: 100px;
+      padding-top: 80px;
       min-height: 100svh;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
-      --mobile-headline-size: {{ section.settings.mobile_headline_size }}rem;
     }
 
     .hero-content {
       order: 1;
       text-align: center;
       padding-bottom: 0;
-      margin-top: var(--spacing-lg);
+      margin-top: 0;
     }
 
     .hero-headline {
       text-align: center;
-      font-size: var(--mobile-headline-size, 3rem);
+      font-size: clamp(2.5rem, 12vw, 4rem);
     }
 
     .hero-product {
@@ -135,15 +130,7 @@
     }
 
     .hero-cta-arrow {
-      {%- if section.settings.arrow_mobile_visible == false -%}
-        display: none;
-      {%- else -%}
-        display: block;
-      {%- endif -%}
-      width: {{ section.settings.arrow_mobile_width | default: 30 }}px;
-      height: {{ section.settings.arrow_mobile_length | default: 40 }}px;
-      margin-top: 8px;
-      transform: rotate({{ section.settings.arrow_mobile_rotation | default: 0 }}deg);
+      display: none;
     }
 
     .circular-text-container {
@@ -163,12 +150,11 @@
     }
 
     .circular-text-container .circular-text text {
-      font-size: {{ section.settings.circular_text_mobile_size }}px;
+      font-size: 5px;
     }
 
     #hero-3d-canvas {
-      opacity: 1;
-      z-index: 1;
+      opacity: 0.5;
     }
   }
 {%- endstyle -%}
@@ -261,60 +247,12 @@
 
 <script id="hero-3d-settings" type="application/json">
   {
-    "sphere1": { 
-      "x": {{ section.settings.sphere1_x | divided_by: 10.0 }}, 
-      "y": {{ section.settings.sphere1_y | divided_by: 10.0 }}, 
-      "mobileX": {{ section.settings.sphere1_mobile_x | default: section.settings.sphere1_x | divided_by: 10.0 }}, 
-      "mobileY": {{ section.settings.sphere1_mobile_y | default: section.settings.sphere1_y | divided_by: 10.0 }}, 
-      "rotation": {{ section.settings.sphere1_rotation }}, 
-      "visible": {{ section.settings.sphere1_visible }},
-      "mobileVisible": {{ section.settings.sphere1_mobile_visible | default: section.settings.sphere1_visible }}
-    },
-    "sphere2": { 
-      "x": {{ section.settings.sphere2_x | divided_by: 10.0 }}, 
-      "y": {{ section.settings.sphere2_y | divided_by: 10.0 }}, 
-      "mobileX": {{ section.settings.sphere2_mobile_x | default: section.settings.sphere2_x | divided_by: 10.0 }}, 
-      "mobileY": {{ section.settings.sphere2_mobile_y | default: section.settings.sphere2_y | divided_by: 10.0 }}, 
-      "rotation": {{ section.settings.sphere2_rotation }}, 
-      "visible": {{ section.settings.sphere2_visible }},
-      "mobileVisible": {{ section.settings.sphere2_mobile_visible | default: section.settings.sphere2_visible }}
-    },
-    "torus": { 
-      "x": {{ section.settings.torus_x | divided_by: 10.0 }}, 
-      "y": {{ section.settings.torus_y | divided_by: 10.0 }}, 
-      "mobileX": {{ section.settings.torus_mobile_x | default: section.settings.torus_x | divided_by: 10.0 }}, 
-      "mobileY": {{ section.settings.torus_mobile_y | default: section.settings.torus_y | divided_by: 10.0 }}, 
-      "rotation": {{ section.settings.torus_rotation }}, 
-      "visible": {{ section.settings.torus_visible }},
-      "mobileVisible": {{ section.settings.torus_mobile_visible | default: section.settings.torus_visible }}
-    },
-    "cone": { 
-      "x": {{ section.settings.cone_x | divided_by: 10.0 }}, 
-      "y": {{ section.settings.cone_y | divided_by: 10.0 }}, 
-      "mobileX": {{ section.settings.cone_mobile_x | default: section.settings.cone_x | divided_by: 10.0 }}, 
-      "mobileY": {{ section.settings.cone_mobile_y | default: section.settings.cone_y | divided_by: 10.0 }}, 
-      "rotation": {{ section.settings.cone_rotation }}, 
-      "visible": {{ section.settings.cone_visible }},
-      "mobileVisible": {{ section.settings.cone_mobile_visible | default: section.settings.cone_visible }}
-    },
-    "spring1": { 
-      "x": {{ section.settings.spring1_x | divided_by: 10.0 }}, 
-      "y": {{ section.settings.spring1_y | divided_by: 10.0 }}, 
-      "mobileX": {{ section.settings.spring1_mobile_x | default: section.settings.spring1_x | divided_by: 10.0 }}, 
-      "mobileY": {{ section.settings.spring1_mobile_y | default: section.settings.spring1_y | divided_by: 10.0 }}, 
-      "rotation": {{ section.settings.spring1_rotation }}, 
-      "visible": {{ section.settings.spring1_visible }},
-      "mobileVisible": {{ section.settings.spring1_mobile_visible | default: section.settings.spring1_visible }}
-    },
-    "spring2": { 
-      "x": {{ section.settings.spring2_x | divided_by: 10.0 }}, 
-      "y": {{ section.settings.spring2_y | divided_by: 10.0 }}, 
-      "mobileX": {{ section.settings.spring2_mobile_x | default: section.settings.spring2_x | divided_by: 10.0 }}, 
-      "mobileY": {{ section.settings.spring2_mobile_y | default: section.settings.spring2_y | divided_by: 10.0 }}, 
-      "rotation": {{ section.settings.spring2_rotation }}, 
-      "visible": {{ section.settings.spring2_visible }},
-      "mobileVisible": {{ section.settings.spring2_mobile_visible | default: section.settings.spring2_visible }}
-    }
+    "sphere1": { "x": {{ section.settings.sphere1_x | divided_by: 10.0 }}, "y": {{ section.settings.sphere1_y | divided_by: 10.0 }}, "rotation": {{ section.settings.sphere1_rotation }}, "visible": {{ section.settings.sphere1_visible }} },
+    "sphere2": { "x": {{ section.settings.sphere2_x | divided_by: 10.0 }}, "y": {{ section.settings.sphere2_y | divided_by: 10.0 }}, "rotation": {{ section.settings.sphere2_rotation }}, "visible": {{ section.settings.sphere2_visible }} },
+    "torus": { "x": {{ section.settings.torus_x | divided_by: 10.0 }}, "y": {{ section.settings.torus_y | divided_by: 10.0 }}, "rotation": {{ section.settings.torus_rotation }}, "visible": {{ section.settings.torus_visible }} },
+    "cone": { "x": {{ section.settings.cone_x | divided_by: 10.0 }}, "y": {{ section.settings.cone_y | divided_by: 10.0 }}, "rotation": {{ section.settings.cone_rotation }}, "visible": {{ section.settings.cone_visible }} },
+    "spring1": { "x": {{ section.settings.spring1_x | divided_by: 10.0 }}, "y": {{ section.settings.spring1_y | divided_by: 10.0 }}, "rotation": {{ section.settings.spring1_rotation }}, "visible": {{ section.settings.spring1_visible }} },
+    "spring2": { "x": {{ section.settings.spring2_x | divided_by: 10.0 }}, "y": {{ section.settings.spring2_y | divided_by: 10.0 }}, "rotation": {{ section.settings.spring2_rotation }}, "visible": {{ section.settings.spring2_visible }} }
   }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -353,44 +291,44 @@
 
   const shapes = [];
 
-  const s1 = settings.sphere1 || { x: 5.5, y: 3.5, mobileX: 3, mobileY: 3, rotation: 0, visible: true, mobileVisible: true };
-  if (s1.visible || s1.mobileVisible) {
+  const s1 = settings.sphere1 || { x: 5.5, y: 3.5, rotation: 0, visible: true };
+  if (s1.visible) {
     const sphereGeo1 = new THREE.SphereGeometry(0.8, 32, 32);
     const sphere1 = new THREE.Mesh(sphereGeo1, whiteMaterial);
     sphere1.position.set(s1.x, s1.y, 0);
     sphere1.rotation.z = s1.rotation * Math.PI / 180;
     scene.add(sphere1);
-    shapes.push({ mesh: sphere1, baseX: s1.x, baseY: s1.y, mobileX: s1.mobileX, mobileY: s1.mobileY, speed: 0.8, amplitude: 0.3, visible: s1.visible, mobileVisible: s1.mobileVisible });
+    shapes.push({ mesh: sphere1, baseY: s1.y, speed: 0.8, amplitude: 0.3 });
   }
 
-  const s2 = settings.sphere2 || { x: -5.5, y: -3, mobileX: -3, mobileY: -3, rotation: 0, visible: true, mobileVisible: true };
-  if (s2.visible || s2.mobileVisible) {
+  const s2 = settings.sphere2 || { x: -5.5, y: -3, rotation: 0, visible: true };
+  if (s2.visible) {
     const sphereGeo2 = new THREE.SphereGeometry(0.6, 32, 32);
     const sphere2 = new THREE.Mesh(sphereGeo2, whiteMaterial);
     sphere2.position.set(s2.x, s2.y, 0);
     sphere2.rotation.z = s2.rotation * Math.PI / 180;
     scene.add(sphere2);
-    shapes.push({ mesh: sphere2, baseX: s2.x, baseY: s2.y, mobileX: s2.mobileX, mobileY: s2.mobileY, speed: 1.0, amplitude: 0.25, visible: s2.visible, mobileVisible: s2.mobileVisible });
+    shapes.push({ mesh: sphere2, baseY: s2.y, speed: 1.0, amplitude: 0.25 });
   }
 
-  const t = settings.torus || { x: 6, y: 1.5, mobileX: 3, mobileY: 1, rotation: 60, visible: true, mobileVisible: true };
-  if (t.visible || t.mobileVisible) {
+  const t = settings.torus || { x: 6, y: 1.5, rotation: 60, visible: true };
+  if (t.visible) {
     const torusGeo = new THREE.TorusGeometry(0.6, 0.2, 16, 48);
     const torus = new THREE.Mesh(torusGeo, whiteMaterial);
     torus.position.set(t.x, t.y, 0);
     torus.rotation.x = t.rotation * Math.PI / 180;
     scene.add(torus);
-    shapes.push({ mesh: torus, baseX: t.x, baseY: t.y, mobileX: t.mobileX, mobileY: t.mobileY, speed: 0.7, amplitude: 0.2, rotate: true, visible: t.visible, mobileVisible: t.mobileVisible });
+    shapes.push({ mesh: torus, baseY: t.y, speed: 0.7, amplitude: 0.2, rotate: true });
   }
 
-  const c = settings.cone || { x: 4, y: -2.5, mobileX: 2.5, mobileY: -2, rotation: 17, visible: true, mobileVisible: true };
-  if (c.visible || c.mobileVisible) {
+  const c = settings.cone || { x: 4, y: -2.5, rotation: 17, visible: true };
+  if (c.visible) {
     const coneGeo = new THREE.ConeGeometry(0.5, 1.2, 32);
     const cone = new THREE.Mesh(coneGeo, whiteMaterial);
     cone.position.set(c.x, c.y, 0);
     cone.rotation.z = c.rotation * Math.PI / 180;
     scene.add(cone);
-    shapes.push({ mesh: cone, baseX: c.x, baseY: c.y, mobileX: c.mobileX, mobileY: c.mobileY, speed: 0.9, amplitude: 0.2, rotate: true, visible: c.visible, mobileVisible: c.mobileVisible });
+    shapes.push({ mesh: cone, baseY: c.y, speed: 0.9, amplitude: 0.2, rotate: true });
   }
 
   function createSpring(x, y, rotation) {
@@ -418,16 +356,16 @@
     return springGroup;
   }
 
-  const sp1 = settings.spring1 || { x: -5.5, y: 3, mobileX: -3, mobileY: 2.5, rotation: -11, visible: true, mobileVisible: true };
-  if (sp1.visible || sp1.mobileVisible) {
+  const sp1 = settings.spring1 || { x: -5.5, y: 3, rotation: -11, visible: true };
+  if (sp1.visible) {
     const spring1 = createSpring(sp1.x, sp1.y, sp1.rotation);
-    shapes.push({ mesh: spring1, baseX: sp1.x, baseY: sp1.y, mobileX: sp1.mobileX, mobileY: sp1.mobileY, speed: 0.6, amplitude: 0.25, rotate: true, visible: sp1.visible, mobileVisible: sp1.mobileVisible });
+    shapes.push({ mesh: spring1, baseY: sp1.y, speed: 0.6, amplitude: 0.25, rotate: true });
   }
 
-  const sp2 = settings.spring2 || { x: 6.5, y: -1, mobileX: 3, mobileY: -1, rotation: 11, visible: true, mobileVisible: true };
-  if (sp2.visible || sp2.mobileVisible) {
+  const sp2 = settings.spring2 || { x: 6.5, y: -1, rotation: 11, visible: true };
+  if (sp2.visible) {
     const spring2 = createSpring(sp2.x, sp2.y, sp2.rotation);
-    shapes.push({ mesh: spring2, baseX: sp2.x, baseY: sp2.y, mobileX: sp2.mobileX, mobileY: sp2.mobileY, speed: 0.75, amplitude: 0.2, rotate: true, visible: sp2.visible, mobileVisible: sp2.mobileVisible });
+    shapes.push({ mesh: spring2, baseY: sp2.y, speed: 0.75, amplitude: 0.2, rotate: true });
   }
 
   let time = 0;
@@ -451,35 +389,10 @@
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
     
-    const isMobile = window.innerWidth < 768;
-    const scale = isMobile ? 0.8 : 1;
-    
-    shapes.forEach((shape) => {
+    const scale = window.innerWidth < 768 ? 0.6 : 1;
+    shapes.forEach(shape => {
       shape.mesh.scale.setScalar(scale);
-      
-      if (isMobile) {
-        shape.mesh.visible = shape.mobileVisible !== false;
-        if (shape.mobileX !== undefined) {
-          shape.mesh.position.x = shape.mobileX;
-        }
-        if (shape.mobileY !== undefined) {
-          shape.mesh.position.y = shape.mobileY;
-          shape.baseY = shape.mobileY;
-        }
-      } else {
-        shape.mesh.visible = shape.visible !== false;
-        if (shape.baseX !== undefined) {
-          shape.mesh.position.x = shape.baseX;
-        }
-        shape.mesh.position.y = shape.baseY;
-      }
     });
-    
-    if (isMobile) {
-      camera.position.z = 12;
-    } else {
-      camera.position.z = 15;
-    }
   }
 
   window.addEventListener('resize', onResize);
@@ -509,16 +422,6 @@
       "id": "headline_line2",
       "label": "Headline line 2",
       "default": "DigiCam"
-    },
-    {
-      "type": "range",
-      "id": "mobile_headline_size",
-      "label": "Mobile headline size",
-      "min": 2,
-      "max": 6,
-      "step": 0.25,
-      "default": 3,
-      "unit": "rem"
     },
     {
       "type": "header",
@@ -575,7 +478,7 @@
     },
     {
       "type": "header",
-      "content": "Arrow - Desktop"
+      "content": "Arrow"
     },
     {
       "type": "range",
@@ -619,52 +522,12 @@
     },
     {
       "type": "header",
-      "content": "Arrow - Mobile"
-    },
-    {
-      "type": "checkbox",
-      "id": "arrow_mobile_visible",
-      "label": "Show arrow on mobile",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "arrow_mobile_length",
-      "label": "Mobile arrow length",
-      "min": 20,
-      "max": 80,
-      "step": 5,
-      "default": 40,
-      "unit": "px"
-    },
-    {
-      "type": "range",
-      "id": "arrow_mobile_width",
-      "label": "Mobile arrow width",
-      "min": 15,
-      "max": 60,
-      "step": 5,
-      "default": 30,
-      "unit": "px"
-    },
-    {
-      "type": "range",
-      "id": "arrow_mobile_rotation",
-      "label": "Mobile arrow rotation",
-      "min": -180,
-      "max": 180,
-      "step": 5,
-      "default": 0,
-      "unit": "°"
-    },
-    {
-      "type": "header",
-      "content": "🔵 Sphere 1 - Desktop"
+      "content": "🔵 Sphere 1 (top right)"
     },
     {
       "type": "checkbox",
       "id": "sphere1_visible",
-      "label": "Show on desktop",
+      "label": "Show sphere 1",
       "default": true
     },
     {
@@ -697,40 +560,12 @@
     },
     {
       "type": "header",
-      "content": "🔵 Sphere 1 - Mobile"
-    },
-    {
-      "type": "checkbox",
-      "id": "sphere1_mobile_visible",
-      "label": "Show on mobile",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "sphere1_mobile_x",
-      "label": "Mobile horizontal",
-      "min": -40,
-      "max": 40,
-      "step": 2,
-      "default": 30
-    },
-    {
-      "type": "range",
-      "id": "sphere1_mobile_y",
-      "label": "Mobile vertical",
-      "min": -50,
-      "max": 50,
-      "step": 2,
-      "default": 30
-    },
-    {
-      "type": "header",
-      "content": "🔵 Sphere 2 - Desktop"
+      "content": "🔵 Sphere 2 (bottom left)"
     },
     {
       "type": "checkbox",
       "id": "sphere2_visible",
-      "label": "Show on desktop",
+      "label": "Show sphere 2",
       "default": true
     },
     {
@@ -763,40 +598,12 @@
     },
     {
       "type": "header",
-      "content": "🔵 Sphere 2 - Mobile"
-    },
-    {
-      "type": "checkbox",
-      "id": "sphere2_mobile_visible",
-      "label": "Show on mobile",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "sphere2_mobile_x",
-      "label": "Mobile horizontal",
-      "min": -40,
-      "max": 40,
-      "step": 2,
-      "default": -30
-    },
-    {
-      "type": "range",
-      "id": "sphere2_mobile_y",
-      "label": "Mobile vertical",
-      "min": -50,
-      "max": 50,
-      "step": 2,
-      "default": -30
-    },
-    {
-      "type": "header",
-      "content": "🍩 Torus - Desktop"
+      "content": "🍩 Torus / Donut (right)"
     },
     {
       "type": "checkbox",
       "id": "torus_visible",
-      "label": "Show on desktop",
+      "label": "Show torus",
       "default": true
     },
     {
@@ -829,40 +636,12 @@
     },
     {
       "type": "header",
-      "content": "🍩 Torus - Mobile"
-    },
-    {
-      "type": "checkbox",
-      "id": "torus_mobile_visible",
-      "label": "Show on mobile",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "torus_mobile_x",
-      "label": "Mobile horizontal",
-      "min": -40,
-      "max": 40,
-      "step": 2,
-      "default": 30
-    },
-    {
-      "type": "range",
-      "id": "torus_mobile_y",
-      "label": "Mobile vertical",
-      "min": -50,
-      "max": 50,
-      "step": 2,
-      "default": 10
-    },
-    {
-      "type": "header",
-      "content": "🔺 Cone - Desktop"
+      "content": "🔺 Cone (bottom right)"
     },
     {
       "type": "checkbox",
       "id": "cone_visible",
-      "label": "Show on desktop",
+      "label": "Show cone",
       "default": true
     },
     {
@@ -895,40 +674,12 @@
     },
     {
       "type": "header",
-      "content": "🔺 Cone - Mobile"
-    },
-    {
-      "type": "checkbox",
-      "id": "cone_mobile_visible",
-      "label": "Show on mobile",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "cone_mobile_x",
-      "label": "Mobile horizontal",
-      "min": -40,
-      "max": 40,
-      "step": 2,
-      "default": 25
-    },
-    {
-      "type": "range",
-      "id": "cone_mobile_y",
-      "label": "Mobile vertical",
-      "min": -50,
-      "max": 50,
-      "step": 2,
-      "default": -20
-    },
-    {
-      "type": "header",
-      "content": "🌀 Spring 1 - Desktop"
+      "content": "🌀 Spring 1 (top left)"
     },
     {
       "type": "checkbox",
       "id": "spring1_visible",
-      "label": "Show on desktop",
+      "label": "Show spring 1",
       "default": true
     },
     {
@@ -961,40 +712,12 @@
     },
     {
       "type": "header",
-      "content": "🌀 Spring 1 - Mobile"
-    },
-    {
-      "type": "checkbox",
-      "id": "spring1_mobile_visible",
-      "label": "Show on mobile",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "spring1_mobile_x",
-      "label": "Mobile horizontal",
-      "min": -40,
-      "max": 40,
-      "step": 2,
-      "default": -30
-    },
-    {
-      "type": "range",
-      "id": "spring1_mobile_y",
-      "label": "Mobile vertical",
-      "min": -50,
-      "max": 50,
-      "step": 2,
-      "default": 25
-    },
-    {
-      "type": "header",
-      "content": "🌀 Spring 2 - Desktop"
+      "content": "🌀 Spring 2 (right side)"
     },
     {
       "type": "checkbox",
       "id": "spring2_visible",
-      "label": "Show on desktop",
+      "label": "Show spring 2",
       "default": true
     },
     {
@@ -1027,34 +750,6 @@
     },
     {
       "type": "header",
-      "content": "🌀 Spring 2 - Mobile"
-    },
-    {
-      "type": "checkbox",
-      "id": "spring2_mobile_visible",
-      "label": "Show on mobile",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "spring2_mobile_x",
-      "label": "Mobile horizontal",
-      "min": -40,
-      "max": 40,
-      "step": 2,
-      "default": 30
-    },
-    {
-      "type": "range",
-      "id": "spring2_mobile_y",
-      "label": "Mobile vertical",
-      "min": -50,
-      "max": 50,
-      "step": 2,
-      "default": -10
-    },
-    {
-      "type": "header",
       "content": "Circular element"
     },
     {
@@ -1062,26 +757,6 @@
       "id": "circular_text",
       "label": "Circular text",
       "default": "point and shoot  point and shoot  "
-    },
-    {
-      "type": "range",
-      "id": "circular_text_size",
-      "label": "Text size - Desktop",
-      "min": 6,
-      "max": 16,
-      "step": 1,
-      "default": 11,
-      "unit": "px"
-    },
-    {
-      "type": "range",
-      "id": "circular_text_mobile_size",
-      "label": "Text size - Mobile",
-      "min": 4,
-      "max": 12,
-      "step": 1,
-      "default": 8,
-      "unit": "px"
     },
     {
       "type": "image_picker",
