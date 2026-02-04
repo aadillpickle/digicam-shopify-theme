@@ -266,16 +266,6 @@ a:hover {
 
 .main-content {
   min-height: 100vh;
-  background-color: var(--color-background);
-}
-
-.template-index .main-content {
-  background: linear-gradient(
-    to bottom,
-    var(--color-background) 0%,
-    var(--color-background) 60%,
-    #FFDAB3 100%
-  );
 }
 
 /* Grid */
@@ -1136,12 +1126,7 @@ a:hover {
 /* Footer */
 .footer {
   padding: var(--spacing-2xl) var(--spacing-md);
-  background: linear-gradient(
-    to bottom,
-    #FFDAB3 0%,
-    var(--color-background-warm) 100%
-  );
-  margin-top: 0;
+  background-color: var(--color-background-warm);
 }
 
 .footer-content {
@@ -1202,19 +1187,6 @@ a:hover {
 
 /* Responsive - Mobile */
 @media (max-width: 768px) {
-  .main-content {
-    margin-bottom: 0;
-  }
-
-  .template-index .main-content {
-    background: linear-gradient(
-      to bottom,
-      var(--color-background) 0%,
-      var(--color-background) 50%,
-      #FFDAB3 100%
-    );
-  }
-
   .hero-landing,
   .hero-landing-section {
     padding: var(--spacing-md);
