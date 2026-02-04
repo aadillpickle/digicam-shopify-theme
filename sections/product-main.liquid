@@ -88,100 +88,7 @@
           {%- endif -%}
         </div>
 
-        <div class="product-description">
-          {%- if current_product.description != blank -%}
-            {{ current_product.description }}
-          {%- else -%}
-            <p><strong>Your pocket-sized time machine.</strong></p>
-
-            <p>Turn every moment into a celebration of fun and nostalgia. This palm-sized wonder clips right onto your bag—part charm, part camera, all magic. Snap street scenes. Record party highlights. Capture quality moments. All without missing a beat.</p>
-
-            <p>The built-in flash means low-light? No problem. The 180° flip screen means selfies? Always sharp. Multiple filters mean boring photos? Never heard of them.</p>
-
-            <p>At just 30g, you'll forget it's there—until you need it. Then you'll wonder how you ever lived without it.</p>
-          {%- endif -%}
-        </div>
-
-        <!-- Features -->
-        <div class="product-features">
-          <div class="product-feature">
-            <span class="feature-title">Built-in Flash</span>
-            <span class="feature-description">Great photos in any light. No more dark, grainy shots.</span>
-          </div>
-          <div class="product-feature">
-            <span class="feature-title">Palm-Sized</span>
-            <span class="feature-description">58 x 24.5 x 20mm. Fits anywhere. Goes everywhere.</span>
-          </div>
-          <div class="product-feature">
-            <span class="feature-title">180° Flip Screen</span>
-            <span class="feature-description">Selfies that actually look good. Frame yourself perfectly.</span>
-          </div>
-          <div class="product-feature">
-            <span class="feature-title">Multiple Filters</span>
-            <span class="feature-description">Add creative effects instantly. No editing required.</span>
-          </div>
-          <div class="product-feature">
-            <span class="feature-title">Keychain Ready</span>
-            <span class="feature-description">Clip it to your bag. Always ready for the moment.</span>
-          </div>
-        </div>
-
-        <!-- Specs -->
-        <div class="product-specs">
-          <h3 class="specs-title">Technical Specs</h3>
-          <div class="specs-grid">
-            <div class="spec-item">
-              <span class="spec-label">Sensor</span>
-              <span class="spec-value">1/4" CMOS</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">Lens</span>
-              <span class="spec-value">35mm F2.4</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">Resolution</span>
-              <span class="spec-value">1440 x 1080</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">Megapixels</span>
-              <span class="spec-value">1.6MP</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">Image Format</span>
-              <span class="spec-value">JPEG</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">Video Format</span>
-              <span class="spec-value">AVI @ 30fps</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">Storage</span>
-              <span class="spec-value">MicroSD (1-128GB)</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">Charging</span>
-              <span class="spec-value">USB-C</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">Battery</span>
-              <span class="spec-value">200mAh</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">Weight</span>
-              <span class="spec-value">30g</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">Material</span>
-              <span class="spec-value">ABS</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">Age</span>
-              <span class="spec-value">15+</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Add to Cart Form -->
+        <!-- Add to Cart Form - Above description -->
         {%- if current_product != blank -%}
           {%- form 'product', current_product, class: 'product-form', data-product-form: '' -%}
             <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
@@ -246,6 +153,101 @@
         {%- else -%}
           <p style="color: var(--color-text-light);">No product selected. Please select a product in the theme customizer.</p>
         {%- endif -%}
+
+        <div class="product-description">
+          {%- if current_product.description != blank -%}
+            {{ current_product.description }}
+          {%- else -%}
+            <p><strong>Your pocket-sized time machine.</strong></p>
+
+            <p>Turn every moment into a celebration of fun and nostalgia. This palm-sized wonder clips right onto your bag—part charm, part camera, all magic. Snap street scenes. Record party highlights. Capture quality moments. All without missing a beat.</p>
+
+            <p>The built-in flash means low-light? No problem. The 180° flip screen means selfies? Always sharp. Multiple filters mean boring photos? Never heard of them.</p>
+
+            <p>At just 30g, you'll forget it's there—until you need it. Then you'll wonder how you ever lived without it.</p>
+          {%- endif -%}
+        </div>
+
+        <!-- Features -->
+        <div class="product-features">
+          <div class="product-feature">
+            <span class="feature-title">Built-in Flash</span>
+            <span class="feature-description">Great photos in any light. No more dark, grainy shots.</span>
+          </div>
+          <div class="product-feature">
+            <span class="feature-title">Palm-Sized</span>
+            <span class="feature-description">58 x 24.5 x 20mm. Fits anywhere. Goes everywhere.</span>
+          </div>
+          <div class="product-feature">
+            <span class="feature-title">180° Flip Screen</span>
+            <span class="feature-description">Selfies that actually look good. Frame yourself perfectly.</span>
+          </div>
+          <div class="product-feature">
+            <span class="feature-title">Multiple Filters</span>
+            <span class="feature-description">Add creative effects instantly. No editing required.</span>
+          </div>
+          <div class="product-feature">
+            <span class="feature-title">Keychain Ready</span>
+            <span class="feature-description">Clip it to your bag. Always ready for the moment.</span>
+          </div>
+        </div>
+
+        <!-- Specs -->
+        <div class="product-specs">
+          <h3 class="specs-title">Technical Specs</h3>
+          <table class="specs-table">
+            <tbody>
+              <tr>
+                <td class="spec-label">Sensor</td>
+                <td class="spec-value">1/4" CMOS</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Lens</td>
+                <td class="spec-value">35mm F2.4</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Resolution</td>
+                <td class="spec-value">1440 x 1080</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Megapixels</td>
+                <td class="spec-value">1.6MP</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Image Format</td>
+                <td class="spec-value">JPEG</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Video Format</td>
+                <td class="spec-value">AVI @ 30fps</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Storage</td>
+                <td class="spec-value">MicroSD (1-128GB)</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Charging</td>
+                <td class="spec-value">USB-C</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Battery</td>
+                <td class="spec-value">200mAh</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Weight</td>
+                <td class="spec-value">30g</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Material</td>
+                <td class="spec-value">ABS</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Age</td>
+                <td class="spec-value">15+</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

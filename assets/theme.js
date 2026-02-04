@@ -3,11 +3,11 @@
    ======================================== */
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Initialize all components
   initQuantitySelectors();
   initProductGallery();
   initAddToCart();
   initCartDrawer();
+  initVariantSelectors();
 });
 
 /* Quantity Selectors */
@@ -121,7 +121,93 @@ async function updateCartCount() {
 
 /* Cart Drawer (placeholder for future enhancement) */
 function initCartDrawer() {
-  // Cart drawer functionality can be added here
+}
+
+/* Variant Selectors */
+function initVariantSelectors() {
+  const variantDataEl = document.querySelector('[data-product-variants]');
+  if (!variantDataEl) return;
+
+  let variants;
+  try {
+    variants = JSON.parse(variantDataEl.textContent);
+  } catch (e) {
+    console.error('Failed to parse variant data:', e);
+    return;
+  }
+
+  const form = variantDataEl.closest('form') || document.querySelector('[data-product-form]');
+  if (!form) return;
+
+  const selects = form.querySelectorAll('.variant-select');
+  const variantIdInput = form.querySelector('[data-variant-id]');
+  const priceDisplay = document.querySelector('[data-product-price]');
+  const addToCartBtn = form.querySelector('.add-to-cart-btn');
+
+  function getSelectedOptions() {
+    const options = [];
+    selects.forEach(select => {
+      options.push(select.value);
+    });
+    return options;
+  }
+
+  function findVariant(options) {
+    return variants.find(variant => {
+      return options.every((option, index) => {
+        return variant.options[index] === option;
+      });
+    });
+  }
+
+  function formatMoney(cents) {
+    return '$' + (cents / 100).toFixed(2);
+  }
+
+  function updateVariant() {
+    const selectedOptions = getSelectedOptions();
+    const variant = findVariant(selectedOptions);
+
+    if (variant) {
+      if (variantIdInput) {
+        variantIdInput.value = variant.id;
+      }
+
+      if (priceDisplay) {
+        if (variant.compare_at_price && variant.compare_at_price > variant.price) {
+          priceDisplay.innerHTML = `
+            <span class="product-price__sale">${formatMoney(variant.price)}</span>
+            <span class="product-price__compare" style="text-decoration: line-through; color: var(--color-text-light); margin-left: 0.5rem; font-size: 1rem;">
+              ${formatMoney(variant.compare_at_price)}
+            </span>
+            <span class="product-price__badge" style="display: inline-block; background: var(--color-accent); color: white; padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); font-size: 0.75rem; margin-left: 0.5rem;">
+              Sale
+            </span>
+          `;
+        } else {
+          priceDisplay.textContent = formatMoney(variant.price);
+        }
+      }
+
+      if (addToCartBtn) {
+        if (variant.available) {
+          addToCartBtn.disabled = false;
+          addToCartBtn.textContent = 'Add to cart — ' + formatMoney(variant.price);
+        } else {
+          addToCartBtn.disabled = true;
+          addToCartBtn.textContent = 'Sold out';
+        }
+      }
+
+      const url = new URL(window.location.href);
+      url.searchParams.set('variant', variant.id);
+      window.history.replaceState({}, '', url);
+    }
+  }
+
+  selects.forEach(select => {
+    select.addEventListener('change', updateVariant);
+  });
 }
 
 /* Cart Page - Update Quantity */

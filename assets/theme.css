@@ -702,6 +702,37 @@ a:hover {
   color: var(--color-text-light);
 }
 
+.specs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.specs-table tr {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.specs-table tr:last-child {
+  border-bottom: none;
+}
+
+.specs-table td {
+  padding: var(--spacing-sm) 0;
+  vertical-align: middle;
+}
+
+.specs-table .spec-label {
+  color: var(--color-text-light);
+  width: 40%;
+  padding-right: var(--spacing-md);
+}
+
+.specs-table .spec-value {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  text-align: right;
+}
+
 .specs-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
