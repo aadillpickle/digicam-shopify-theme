@@ -155,7 +155,7 @@
     }
 
     #hero-3d-canvas {
-      opacity: 0.5;
+      opacity: 1;
     }
   }
 {%- endstyle -%}
@@ -390,7 +390,7 @@
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
     
-    const scale = window.innerWidth < 768 ? 0.6 : 1;
+    const scale = window.innerWidth < 768 ? 0.85 : 1;
     shapes.forEach(shape => {
       shape.mesh.scale.setScalar(scale);
     });
