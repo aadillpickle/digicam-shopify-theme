@@ -756,7 +756,8 @@ a:hover {
 
 /* Product Form */
 .product-form {
-  margin-top: var(--spacing-xl);
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
 }
 
 .quantity-selector {

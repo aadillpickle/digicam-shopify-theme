@@ -10,7 +10,6 @@
     background: {{ section.settings.background_color }};
   }
 
-  /* Smooth blended gradients */
   .hero-landing-section::before {
     content: '';
     position: absolute;
@@ -43,11 +42,10 @@
     pointer-events: none;
   }
 
-  /* CTA Button positioned left of center, above text */
   .hero-cta-wrapper {
     position: absolute;
-    left: 28%;
-    top: 35%;
+    left: {{ section.settings.button_horizontal_position }}%;
+    top: {{ section.settings.button_vertical_position }}%;
     transform: translateX(-50%);
     z-index: 10;
     display: flex;
@@ -56,17 +54,27 @@
   }
 
   .hero-cta-arrow {
-    width: 40px;
-    height: 50px;
+    width: {{ section.settings.arrow_width }}px;
+    height: {{ section.settings.arrow_length }}px;
     stroke: var(--color-text, #1a1a1a);
     stroke-width: 2;
     fill: none;
-    margin-top: 8px;
+    margin-top: {{ section.settings.arrow_offset }}px;
   }
 
   .hero-cta-wrapper .btn {
     padding: 1.25rem 2.5rem;
     font-size: 1.0625rem;
+  }
+
+  #hero-3d-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
   }
 
   @media (max-width: 768px) {
@@ -95,37 +103,15 @@
     .hero-headline {
       text-align: center;
     }
+
+    #hero-3d-canvas {
+      opacity: 0.7;
+    }
   }
 {%- endstyle -%}
 
 <section class="hero-landing-section" data-section-id="{{ section.id }}">
-  <!-- Floating 3D Shapes - 6 total, spread to edges away from text/button -->
-
-  <!-- Top right area -->
-  <div class="floating-sphere sphere-1"></div>
-
-  <!-- Top left area -->
-  <div class="floating-spring spring-1">
-    <svg viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 5 C38 5, 38 18, 20 18 C2 18, 2 31, 20 31 C38 31, 38 44, 20 44 C2 44, 2 57, 20 57 C38 57, 38 70, 20 70 C2 70, 2 83, 20 83 C38 83, 38 96, 20 96" stroke="white" stroke-width="5" stroke-linecap="round" fill="none"/>
-    </svg>
-  </div>
-
-  <!-- Right side middle -->
-  <div class="floating-torus torus-1"></div>
-
-  <!-- Bottom right -->
-  <div class="floating-cone cone-1"></div>
-
-  <!-- Bottom left area -->
-  <div class="floating-sphere sphere-2"></div>
-
-  <!-- Far right -->
-  <div class="floating-spring spring-2">
-    <svg viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 5 C38 5, 38 18, 20 18 C2 18, 2 31, 20 31 C38 31, 38 44, 20 44 C2 44, 2 57, 20 57 C38 57, 38 70, 20 70 C2 70, 2 83, 20 83 C38 83, 38 96, 20 96" stroke="white" stroke-width="5" stroke-linecap="round" fill="none"/>
-    </svg>
-  </div>
+  <canvas id="hero-3d-canvas"></canvas>
 
   <!-- Circular Text Element with Lens -->
   <div class="circular-text-container">
@@ -181,7 +167,6 @@
     {%- endif -%}
   </div>
 
-  <!-- CTA Button with arrow pointing up from text -->
   <div class="hero-cta-wrapper">
     {%- liquid
       if section.settings.button_link != blank
@@ -189,16 +174,15 @@
       elsif section.settings.featured_product != blank
         assign button_url = section.settings.featured_product.url
       else
-        assign button_url = '/collections/all'
+        assign button_url = routes.root_url
       endif
     -%}
     <a href="{{ button_url }}" class="btn btn-primary btn-with-check btn-large">
       {{ section.settings.button_text | default: 'Add to cart' }}
     </a>
 
-    <!-- Small hand-drawn arrow pointing up from text to button -->
-    <svg class="hero-cta-arrow" viewBox="0 0 50 60" xmlns="http://www.w3.org/2000/svg">
-      <path d="M 25 55 Q 20 35 25 15" stroke-linecap="round" fill="none"/>
+    <svg class="hero-cta-arrow" viewBox="0 0 50 {{ section.settings.arrow_length }}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <path d="M 25 {{ section.settings.arrow_length | minus: 5 }} Q 20 {{ section.settings.arrow_length | divided_by: 2 }} 25 15" stroke-linecap="round" fill="none"/>
       <path d="M 18 22 L 25 12 L 32 22" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
     </svg>
   </div>
@@ -211,6 +195,129 @@
     </h1>
   </div>
 </section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function() {
+  const canvas = document.getElementById('hero-3d-canvas');
+  if (!canvas) return;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.z = 15;
+
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+  scene.add(ambientLight);
+
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+  directionalLight.position.set(5, 10, 7);
+  scene.add(directionalLight);
+
+  const fillLight = new THREE.DirectionalLight(0xffffff, 0.3);
+  fillLight.position.set(-5, -5, 5);
+  scene.add(fillLight);
+
+  const whiteMaterial = new THREE.MeshStandardMaterial({
+    color: 0xffffff,
+    roughness: 0.15,
+    metalness: 0.05
+  });
+
+  const shapes = [];
+
+  const sphereGeo1 = new THREE.SphereGeometry(0.8, 32, 32);
+  const sphere1 = new THREE.Mesh(sphereGeo1, whiteMaterial);
+  sphere1.position.set(5.5, 3.5, 0);
+  scene.add(sphere1);
+  shapes.push({ mesh: sphere1, baseY: 3.5, speed: 0.8, amplitude: 0.3 });
+
+  const sphereGeo2 = new THREE.SphereGeometry(0.6, 32, 32);
+  const sphere2 = new THREE.Mesh(sphereGeo2, whiteMaterial);
+  sphere2.position.set(-5.5, -3, 0);
+  scene.add(sphere2);
+  shapes.push({ mesh: sphere2, baseY: -3, speed: 1.0, amplitude: 0.25 });
+
+  const torusGeo = new THREE.TorusGeometry(0.6, 0.2, 16, 48);
+  const torus = new THREE.Mesh(torusGeo, whiteMaterial);
+  torus.position.set(6, 1.5, 0);
+  torus.rotation.x = Math.PI / 3;
+  scene.add(torus);
+  shapes.push({ mesh: torus, baseY: 1.5, speed: 0.7, amplitude: 0.2, rotate: true });
+
+  const coneGeo = new THREE.ConeGeometry(0.5, 1.2, 32);
+  const cone = new THREE.Mesh(coneGeo, whiteMaterial);
+  cone.position.set(4, -2.5, 0);
+  cone.rotation.z = 0.3;
+  scene.add(cone);
+  shapes.push({ mesh: cone, baseY: -2.5, speed: 0.9, amplitude: 0.2, rotate: true });
+
+  function createSpring(x, y, rotation) {
+    const springGroup = new THREE.Group();
+    const curve = new THREE.CatmullRomCurve3([]);
+    const coils = 5;
+    const height = 2;
+    const radius = 0.3;
+    
+    for (let i = 0; i <= coils * 20; i++) {
+      const t = i / (coils * 20);
+      const angle = t * coils * Math.PI * 2;
+      const px = Math.cos(angle) * radius;
+      const py = t * height - height / 2;
+      const pz = Math.sin(angle) * radius;
+      curve.points.push(new THREE.Vector3(px, py, pz));
+    }
+    
+    const tubeGeo = new THREE.TubeGeometry(curve, 100, 0.06, 8, false);
+    const spring = new THREE.Mesh(tubeGeo, whiteMaterial);
+    springGroup.add(spring);
+    springGroup.position.set(x, y, 0);
+    springGroup.rotation.z = rotation;
+    scene.add(springGroup);
+    return springGroup;
+  }
+
+  const spring1 = createSpring(-5.5, 3, -0.2);
+  shapes.push({ mesh: spring1, baseY: 3, speed: 0.6, amplitude: 0.25, rotate: true });
+
+  const spring2 = createSpring(6.5, -1, 0.2);
+  shapes.push({ mesh: spring2, baseY: -1, speed: 0.75, amplitude: 0.2, rotate: true });
+
+  let time = 0;
+
+  function animate() {
+    requestAnimationFrame(animate);
+    time += 0.016;
+
+    shapes.forEach((shape, i) => {
+      shape.mesh.position.y = shape.baseY + Math.sin(time * shape.speed + i) * shape.amplitude;
+      if (shape.rotate) {
+        shape.mesh.rotation.y += 0.005;
+      }
+    });
+
+    renderer.render(scene, camera);
+  }
+
+  function onResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    
+    const scale = window.innerWidth < 768 ? 0.6 : 1;
+    shapes.forEach(shape => {
+      shape.mesh.scale.setScalar(scale);
+    });
+  }
+
+  window.addEventListener('resize', onResize);
+  onResize();
+  animate();
+})();
+</script>
 
 {% schema %}
 {
@@ -259,7 +366,67 @@
       "type": "url",
       "id": "button_link",
       "label": "Button link",
-      "info": "Leave empty to link to the featured product"
+      "info": "Leave empty to link to the featured product page"
+    },
+    {
+      "type": "header",
+      "content": "Button position"
+    },
+    {
+      "type": "range",
+      "id": "button_horizontal_position",
+      "label": "Horizontal position",
+      "info": "0 = left edge, 50 = center, 100 = right edge",
+      "min": 10,
+      "max": 90,
+      "step": 1,
+      "default": 28,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "button_vertical_position",
+      "label": "Vertical position",
+      "info": "0 = top, 50 = middle, 100 = bottom",
+      "min": 10,
+      "max": 70,
+      "step": 1,
+      "default": 35,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Arrow"
+    },
+    {
+      "type": "range",
+      "id": "arrow_length",
+      "label": "Arrow length",
+      "min": 30,
+      "max": 120,
+      "step": 5,
+      "default": 50,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "arrow_width",
+      "label": "Arrow width",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "arrow_offset",
+      "label": "Arrow spacing from button",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 8,
+      "unit": "px"
     },
     {
       "type": "header",
