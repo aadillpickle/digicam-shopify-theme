@@ -15,9 +15,10 @@
       "type": "announcement-banner",
       "settings": {
         "show_banner": true,
-        "text": "Free shipping on orders over $50",
-        "background_color": "#1A1A1A",
-        "text_color": "#FFFFFF",
+        "text": "FREE SHIPPING ON ORDERS OVER $30",
+        "link": "",
+        "background_color": "#1a1a1a",
+        "text_color": "#ffffff",
         "text_size": 14,
         "padding_vertical": 12,
         "show_close_button": false
